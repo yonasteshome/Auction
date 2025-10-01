@@ -17,7 +17,7 @@ export default function AuctionDetails() {
   // ✅ Fetch auction details
   useEffect(() => {
     if (!id) return
-    fetch(`http://localhost:5000/api/auctions/${id}`, {
+    fetch(`https://auction-hyt6.onrender.com/api/auctions/${id}`, {
       credentials: "include",
     })
       .then((res) => {
@@ -31,7 +31,7 @@ export default function AuctionDetails() {
   // ✅ Fetch bids
   useEffect(() => {
     if (!id) return
-    fetch(`http://localhost:5000/api/bids/${id}`, {
+    fetch(`https://auction-hyt6.onrender.com/api/bids/${id}`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -43,7 +43,7 @@ export default function AuctionDetails() {
   const handleBid = async () => {
     if (!bidAmount) return alert("Please enter a bid amount")
     try {
-      const res = await fetch(`http://localhost:5000/api/bids/${id}`, {
+      const res = await fetch(`https://auction-hyt6.onrender.com/api/bids/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
