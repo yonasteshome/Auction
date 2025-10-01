@@ -30,7 +30,7 @@ export default function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const res = await fetch("http://localhost:5000/api/users/register", {
+      const res = await fetch("https://auction-hyt6.onrender.com/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
