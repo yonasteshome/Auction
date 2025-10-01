@@ -26,7 +26,7 @@ export default function ProfilePage() {
   }, [router])
 
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/users/logout", {
+    await fetch("https://auction-hyt6.onrender.com/api/users/logout", {
       method: "POST",
       credentials: "include",
     })
