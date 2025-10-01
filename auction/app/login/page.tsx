@@ -37,7 +37,7 @@ export default function LoginPage() {
         {/* Left side - Image */}
         <div className="hidden md:flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 p-6">
           <img
-            src="/auction-login.jpg"
+            src=""
             alt="Auction Illustration"
             className="w-full h-full object-cover rounded-lg"
           />
