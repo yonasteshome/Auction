@@ -11,7 +11,7 @@ export default function ArtistDashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/artworks", {
+    fetch("https://auction-hyt6.onrender.com/api/artworks", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -21,7 +21,7 @@ export default function ArtistDashboard() {
 
   // ✅ Logout handler
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/logout", {
+    await fetch("https://auction-hyt6.onrender.com/api/logout", {
       method: "POST",
       credentials: "include",
     })
