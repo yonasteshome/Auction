@@ -15,7 +15,7 @@ export default function AuctionList() {
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auctions")
+        const res = await fetch("https://auction-hyt6.onrender.com/api/auctions")
         const data = await res.json()
 
         const auctionArray = Array.isArray(data) ? data : data.auctions || []
