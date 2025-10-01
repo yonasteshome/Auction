@@ -24,7 +24,7 @@ export default function ArtistAuctions() {
   const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/auctions/my-auctions", {
+    fetch("https://auction-hyt6.onrender.com/api/auctions/my-auctions", {
       credentials: "include",
     })
       .then((res) => res.json())
