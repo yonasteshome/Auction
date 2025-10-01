@@ -10,7 +10,7 @@ export default function ManageAuctions() {
 
   // ✅ Fetch auctions
   useEffect(() => {
-    fetch("http://localhost:5000/api/auctions", { credentials: "include" })
+    fetch("https://auction-hyt6.onrender.com/api/auctions", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setAuctions(data))
       .catch(() => setError("Failed to load auctions"))
@@ -20,7 +20,7 @@ export default function ManageAuctions() {
   const handleEnd = async (id: string) => {
     if (!confirm("Are you sure you want to end this auction?")) return
     try {
-      const res = await fetch(`http://localhost:5000/api/auctions/${id}/end`, {
+      const res = await fetch(`https://auction-hyt6.onrender.com/api/auctions/${id}/end`, {
         method: "PUT",
         credentials: "include",
       })
@@ -41,7 +41,7 @@ export default function ManageAuctions() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this auction permanently?")) return
     try {
-      const res = await fetch(`http://localhost:5000/api/auctions/${id}`, {
+      const res = await fetch(`https://auction-hyt6.onrender.com/api/auctions/${id}`, {
         method: "DELETE",
         credentials: "include",
       })
