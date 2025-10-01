@@ -17,7 +17,7 @@ export default function CreateArtworkPage() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await fetch("http://localhost:5000/api/users/logout", {
+    await fetch("https://auction-hyt6.onrender.com/api/users/logout", {
       method: "POST",
       credentials: "include",
     });
@@ -29,7 +29,7 @@ export default function CreateArtworkPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/artworks", {
+      const res = await fetch("https://auction-hyt6.onrender.com/api/artworks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
