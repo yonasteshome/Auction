@@ -17,7 +17,7 @@ export default function CreateAuctionPage() {
 
   // ✅ Fetch artist’s artworks (only their own)
   useEffect(() => {
-    fetch("http://localhost:5000/api/artworks", { credentials: "include" })
+    fetch("https://auction-hyt6.onrender.com/api/artworks", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setArtworks(data))
       .catch(() => setError("Failed to load artworks"))
@@ -32,7 +32,7 @@ export default function CreateAuctionPage() {
     setError("")
 
     try {
-      const res = await fetch("http://localhost:5000/api/auctions", {
+      const res = await fetch("https://auction-hyt6.onrender.com/api/auctions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -45,7 +45,7 @@ export default function CreateAuctionPage() {
         return
       }
 
-      router.push("/dashboard")
+      router.push("/artist/dashboard")
     } catch {
       setError("Something went wrong")
     }
