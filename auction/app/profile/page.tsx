@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/users/profile", {
+    fetch("https://auction-hyt6.onrender.com/api/users/profile", {
       method: "GET",
       credentials: "include",
     })
