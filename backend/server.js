@@ -16,7 +16,7 @@ app.use(cookieParser()); // to read cookies
 
 app.use(
   cors({
-    origin: "https://auction-xi-five.vercel.app/",
+    origin: "https://auction-xi-five.vercel.app",
     credentials: true,
   })
 );
