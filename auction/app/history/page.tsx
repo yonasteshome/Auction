@@ -3,21 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
-// ✅ Simple Navbar Component
-function Navbar() {
-  return (
-    <nav className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center shadow">
-      <h1 className="text-lg font-bold">Auction App</h1>
-      <div className="space-x-4">
-        <Link href="/" className="hover:underline">Home</Link>
-        <Link href="/history" className="hover:underline">My Orders</Link>
-        <Link href="/payment" className="hover:underline">Payments</Link>
-      </div>
-    </nav>
-  );
-}
+import Navbar from "@/components/Navbar";   // ✅ Import your Navbar component
 
 export default function HistoryPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -53,7 +39,7 @@ export default function HistoryPage() {
 
   return (
     <div>
-      {/* ✅ Navbar */}
+      {/* ✅ Navbar at the top */}
       <Navbar />
 
       <div className="p-6">
