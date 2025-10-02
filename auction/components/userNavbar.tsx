@@ -20,12 +20,14 @@ export default function Navbar({ onLogout }: { onLogout?: () => void }) {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             <Link href="/profile" className="hover:text-gray-300">
-              profile
+              Profile
             </Link>
             <Link href="/auctions" className="hover:text-gray-300">
               Auctions
             </Link>
-            
+            <Link href="/history" className="hover:text-gray-300">
+              History
+            </Link>
             {onLogout && (
               <Button
                 onClick={() => onLogout?.()}
@@ -48,12 +50,15 @@ export default function Navbar({ onLogout }: { onLogout?: () => void }) {
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="md:hidden bg-gray-800 px-4 pt-2 pb-4 space-y-3">
-         <Link href="/profile" className="hover:text-gray-300">
-              profile
-            </Link>
-            <Link href="/auctions" className="hover:text-gray-300">
-              Auctions
-            </Link>
+          <Link href="/profile" className="block hover:text-gray-300">
+            Profile
+          </Link>
+          <Link href="/auctions" className="block hover:text-gray-300">
+            Auctions
+          </Link>
+          <Link href="/history" className="block hover:text-gray-300">
+            History
+          </Link>
           {onLogout && (
             <Button
               onClick={() => {
