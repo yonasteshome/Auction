@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import Navbar from "@/components/Navbar" // ✅ import Navbar
+import Navbar from "../../components/userNavbar" // ✅ import Navbar
 
 export default function AuctionList() {
   const [auctions, setAuctions] = useState<any[]>([])
