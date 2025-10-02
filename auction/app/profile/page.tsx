@@ -2,14 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Navbar from "../../components/Navbar" // ✅ import your reusable Navbar
 import { Card, CardContent } from "@/components/ui/card"
-import { Menu, X } from "lucide-react"
 
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null)
-  const [menuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -43,112 +40,11 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* 🔹 Navbar */}
-      <header className="w-full bg-white shadow-md py-4 px-6 flex justify-between items-center relative">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <img
-            src="/logo.png"
-            alt="Logo"
-            className="h-10 w-10 object-cover rounded"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none"
-            }}
-          />
-          <span className="text-lg md:text-xl font-bold text-gray-800">
-            Auction System
-          </span>
-        </Link>
-
-        {/* Desktop menu */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link href="/profile" className="text-gray-700 hover:text-blue-600">
-            Profile
-          </Link>
-          <Link
-            href="/artworks/create"
-            className="text-gray-700 hover:text-blue-600"
-          >
-            Create Artwork
-          </Link>
-          <Link
-            href="/auctions/create"
-            className="text-gray-700 hover:text-blue-600"
-          >
-            Create Auction
-          </Link>
-          <Link href="/bids/live" className="text-gray-700 hover:text-blue-600">
-            Live Bids
-          </Link>
-          <Link href="/status" className="text-gray-700 hover:text-blue-600">
-            Status
-          </Link>
-          <Button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2"
-          >
-            Logout
-          </Button>
-        </div>
-
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-gray-800"
-        >
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-
-        {/* Mobile dropdown menu */}
-        {menuOpen && (
-          <div className="absolute right-6 top-16 bg-white border border-gray-200 rounded-lg shadow-md flex flex-col w-48 z-50">
-            <Link
-              href="/profile"
-              className="px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              Profile
-            </Link>
-            <Link
-              href="artist/create"
-              className="px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              Create Artwork
-            </Link>
-            <Link
-              href="artist/create-auction"
-              className="px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              Create Auction
-            </Link>
-            <Link
-              href="/bids/active"
-              className="px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              Live Bids
-            </Link>
-            <Link
-              href="/status"
-              className="px-4 py-2 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              Status
-            </Link>
-            <Button
-              onClick={handleLogout}
-              className="m-2 bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2"
-            >
-              Logout
-            </Button>
-          </div>
-        )}
-      </header>
+      {/* ✅ Use central Navbar */}
+      <Navbar onLogout={handleLogout} />
 
       {/* 🔹 Main content */}
-      <main className="flex-1 p-6 flex flex-col md:flex-row gap-6">
+      <main className="flex-1 p-6 flex flex-col md:flex-row gap-6 mt-16">
         {/* Left column - Profile card */}
         <Card className="flex-1 rounded-2xl shadow-lg border border-gray-200 bg-white">
           <CardContent className="p-6 text-center space-y-4">
