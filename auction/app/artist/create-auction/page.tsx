@@ -17,13 +17,15 @@ export default function CreateAuctionPage() {
 
   // ✅ Fetch artist’s artworks (only their own)
   useEffect(() => {
-    fetch("https://auction-hyt6.onrender.com/api/artworks", { credentials: "include" })
+    fetch("http://localhost:5000/api/artworks", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setArtworks(data))
       .catch(() => setError("Failed to load artworks"))
   }, [])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -32,11 +34,18 @@ export default function CreateAuctionPage() {
     setError("")
 
     try {
-      const res = await fetch("https://auction-hyt6.onrender.com/api/auctions", {
+      // ✅ Convert local datetime → UTC ISO string
+      const normalizedForm = {
+        ...form,
+        startTime: new Date(form.startTime).toISOString(),
+        endTime: new Date(form.endTime).toISOString(),
+      }
+
+      const res = await fetch("http://localhost:5000/api/auctions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-        credentials: "include", // ✅ send cookies
+        body: JSON.stringify(normalizedForm),
+        credentials: "include", // ✅ send cookies/session
       })
 
       if (!res.ok) {
@@ -45,7 +54,7 @@ export default function CreateAuctionPage() {
         return
       }
 
-      router.push("/artist/dashboard")
+      router.push("/dashboard")
     } catch {
       setError("Something went wrong")
     }
@@ -65,11 +74,15 @@ export default function CreateAuctionPage() {
             📢 Create Auction
           </h1>
 
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-sm text-center">{error}</p>
+          )}
 
           {/* Select Artwork */}
           <div>
-            <label className="block text-sm font-medium mb-1">Select Artwork</label>
+            <label className="block text-sm font-medium mb-1">
+              Select Artwork
+            </label>
             <select
               name="artworkId"
               value={form.artworkId}
@@ -86,8 +99,11 @@ export default function CreateAuctionPage() {
             </select>
           </div>
 
+          {/* Start Price */}
           <div>
-            <label className="block text-sm font-medium mb-1">Start Price ($)</label>
+            <label className="block text-sm font-medium mb-1">
+              Start Price ($)
+            </label>
             <input
               type="number"
               name="startPrice"
@@ -99,6 +115,7 @@ export default function CreateAuctionPage() {
             />
           </div>
 
+          {/* Start Time */}
           <div>
             <label className="block text-sm font-medium mb-1">Start Time</label>
             <input
@@ -111,6 +128,7 @@ export default function CreateAuctionPage() {
             />
           </div>
 
+          {/* End Time */}
           <div>
             <label className="block text-sm font-medium mb-1">End Time</label>
             <input
