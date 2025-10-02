@@ -1,4 +1,3 @@
-// app/auctions/[id]/page.tsx
 "use client"
 
 import { useEffect, useState } from "react"
@@ -13,6 +12,7 @@ export default function AuctionDetails() {
   const [auction, setAuction] = useState<any>(null)
   const [bids, setBids] = useState<any[]>([])
   const [bidAmount, setBidAmount] = useState("")
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
   // ✅ Fetch auction details
   useEffect(() => {
@@ -38,6 +38,16 @@ export default function AuctionDetails() {
       .then((data) => setBids(data))
       .catch(() => setBids([]))
   }, [id])
+
+  // ✅ Fetch logged-in user (for winner check)
+  useEffect(() => {
+    fetch(`https://auction-hyt6.onrender.com/api/users/profile`, {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((user) => setCurrentUserId(user._id))
+      .catch(() => setCurrentUserId(null))
+  }, [])
 
   // ✅ Place bid
   const handleBid = async () => {
@@ -123,9 +133,21 @@ export default function AuctionDetails() {
             </p>
 
             {isEnded && auction.winner && (
-              <p className="text-blue-600 font-semibold">
-                🏆 Winner: {auction.winner.username}
-              </p>
+              <div className="mt-3 space-y-3">
+                <p className="text-blue-600 font-semibold">
+                  🏆 Winner: {auction.winner.username}
+                </p>
+
+                {/* ✅ Show Pay button if current user is the winner */}
+                {currentUserId === auction.winner._id && (
+                  <Button
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    onClick={() => router.push(`/payment/${auction._id}`)}
+                  >
+                    💳 You are the Winner — Pay Now
+                  </Button>
+                )}
+              </div>
             )}
 
             {/* ✅ Place Bid */}
