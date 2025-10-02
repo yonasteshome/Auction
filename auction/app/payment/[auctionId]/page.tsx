@@ -1,76 +1,63 @@
-
 "use client"
 
-import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
-import Navbar from "@/components/Navbar"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-export default function PaymentPage() {
-  const { auctionId } = useParams()
-  const router = useRouter()
-  const [paymentMethod, setPaymentMethod] = useState("paypal")
+export default function PaymentPage({ auction }: { auction: any }) {
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
-  const handlePayment = async () => {
-    setLoading(true)
+  const handlePayment = async (paymentMethod: string) => {
     try {
+      setLoading(true)
+
       const res = await fetch("https://auction-hyt6.onrender.com/api/payments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        credentials: "include", // keep cookies/session
         body: JSON.stringify({
-          auctionId,
+          auction: auction?._id, // backend expects "auction"
+          amount: auction?.currentPrice || auction?.finalPrice || 0, // amount required
           paymentMethod,
         }),
       })
 
       const data = await res.json()
-      if (!res.ok) throw new Error(data.message || "Payment failed")
+
+      if (!res.ok) {
+        console.error("Payment error:", data)
+        alert(`❌ Payment failed: ${data.message || "Unknown error"}`)
+        return
+      }
 
       alert("✅ Payment successful!")
-      router.push("/orders") // Redirect to orders page after success
+      router.push("/profile") // redirect after success
     } catch (err: any) {
-      alert("❌ " + err.message)
+      console.error("Payment request error:", err)
+      alert("❌ Payment request failed")
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
+    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-4">Complete Your Payment</h1>
+      <p className="mb-6 text-lg">
+        Auction: <span className="font-semibold">{auction?.title}</span>
+        <br />
+        Amount: <span className="font-semibold">${auction?.currentPrice || auction?.finalPrice}</span>
+      </p>
 
-      <main className="pt-16 px-4 pb-8 max-w-md mx-auto">
-        <Card className="shadow-md">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Complete Payment</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Select Payment Method
-            </label>
-            <select
-              value={paymentMethod}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2"
-            >
-              <option value="paypal">PayPal</option>
-              <option value="credit_card">Credit Card</option>
-              <option value="bank_transfer">Bank Transfer</option>
-            </select>
-
-            <Button
-              onClick={handlePayment}
-              disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 text-white"
-            >
-              {loading ? "Processing..." : "Confirm Payment"}
-            </Button>
-          </CardContent>
-        </Card>
-      </main>
+      <div className="flex gap-4">
+        <Button onClick={() => handlePayment("paypal")} disabled={loading}>
+          Pay with PayPal
+        </Button>
+        <Button onClick={() => handlePayment("credit-card")} disabled={loading}>
+          Pay with Card
+        </Button>
+      </div>
     </div>
   )
 }
