@@ -3,6 +3,21 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+// ✅ Simple Navbar Component
+function Navbar() {
+  return (
+    <nav className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center shadow">
+      <h1 className="text-lg font-bold">Auction App</h1>
+      <div className="space-x-4">
+        <Link href="/" className="hover:underline">Home</Link>
+        <Link href="/history" className="hover:underline">My Orders</Link>
+        <Link href="/payment" className="hover:underline">Payments</Link>
+      </div>
+    </nav>
+  );
+}
 
 export default function HistoryPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -37,67 +52,74 @@ export default function HistoryPage() {
   const unpaid = orders.filter((o) => o.status !== "completed");
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">My Orders</h1>
+    <div>
+      {/* ✅ Navbar */}
+      <Navbar />
 
-      {/* ✅ Completed Orders */}
-      <h2 className="text-green-600 font-semibold mb-2">
-        ✅ Completed Payments
-      </h2>
-      {completed.length > 0 ? (
-        completed.map((order) => (
-          <div
-            key={order._id}
-            className="border rounded p-4 mb-3 bg-white shadow"
-          >
-            <p>
-              <strong>Auction ID:</strong> {order.auction?._id}
-            </p>
-            <p>
-              <strong>Amount:</strong> ${order.amount} —{" "}
-              <strong>Method:</strong> {order.paymentMethod}
-            </p>
-            <p>
-              <strong>Status:</strong> {order.status}
-            </p>
-            <p>
-              <strong>Date:</strong>{" "}
-              {new Date(order.createdAt).toLocaleString()}
-            </p>
-          </div>
-        ))
-      ) : (
-        <p className="text-gray-500 mb-6">No completed orders yet.</p>
-      )}
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">My Orders</h1>
 
-      {/* ❌ Unpaid Orders */}
-      <h2 className="text-red-600 font-semibold mb-2 mt-6">❌ Unpaid Orders</h2>
-      {unpaid.length > 0 ? (
-        unpaid.map((order) => (
-          <div
-            key={order._id}
-            className="border rounded p-4 mb-3 bg-white shadow"
-          >
-            <p>
-              <strong>Auction ID:</strong> {order.auction?._id}
-            </p>
-            <p>
-              <strong>Amount:</strong> ${order.amount}
-            </p>
-            <p>
-              <strong>Status:</strong> {order.status}
-            </p>
-            <Button
-              className="mt-2"
-              onClick={() => router.push(`/payment/${order.auction?._id}`)}
+        {/* ✅ Completed Orders */}
+        <h2 className="text-green-600 font-semibold mb-2">
+          ✅ Completed Payments
+        </h2>
+        {completed.length > 0 ? (
+          completed.map((order) => (
+            <div
+              key={order._id}
+              className="border rounded p-4 mb-3 bg-white shadow"
             >
-              Pay Now
-            </Button>
-          </div>
-        ))
-      ) : (
-        <p className="text-gray-500">No unpaid orders 🎉</p>
-      )}
+              <p>
+                <strong>Auction ID:</strong> {order.auction?._id}
+              </p>
+              <p>
+                <strong>Amount:</strong> ${order.amount} —{" "}
+                <strong>Method:</strong> {order.paymentMethod}
+              </p>
+              <p>
+                <strong>Status:</strong> {order.status}
+              </p>
+              <p>
+                <strong>Date:</strong>{" "}
+                {new Date(order.createdAt).toLocaleString()}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500 mb-6">No completed orders yet.</p>
+        )}
+
+        {/* ❌ Unpaid Orders */}
+        <h2 className="text-red-600 font-semibold mb-2 mt-6">
+          ❌ Unpaid Orders
+        </h2>
+        {unpaid.length > 0 ? (
+          unpaid.map((order) => (
+            <div
+              key={order._id}
+              className="border rounded p-4 mb-3 bg-white shadow"
+            >
+              <p>
+                <strong>Auction ID:</strong> {order.auction?._id}
+              </p>
+              <p>
+                <strong>Amount:</strong> ${order.amount}
+              </p>
+              <p>
+                <strong>Status:</strong> {order.status}
+              </p>
+              <Button
+                className="mt-2"
+                onClick={() => router.push(`/payment/${order.auction?._id}`)}
+              >
+                Pay Now
+              </Button>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500">No unpaid orders 🎉</p>
+        )}
+      </div>
     </div>
   );
 }
