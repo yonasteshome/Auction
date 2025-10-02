@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import userNavbar from "@/components/userNavbar";   // ✅ Import your Navbar component
+import userNavbar from "../../components/userNavbar";   // ✅ Import your Navbar component
 
 export default function HistoryPage() {
   const [orders, setOrders] = useState<any[]>([]);
