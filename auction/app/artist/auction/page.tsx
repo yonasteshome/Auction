@@ -46,7 +46,7 @@ export default function ArtistAuctions() {
             </CardHeader>
             <CardContent>
               <p>{auction.artwork?.description}</p>
-              <p className="text-sm text-gray-500 mb-2">
+              <p className="text-sm text-gray-500 mb-4">
                 Starting Price: ${auction.startPrice}
               </p>
               <p className="mb-2">Current Price: ${auction.currentPrice}</p>
