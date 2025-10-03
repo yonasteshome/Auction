@@ -20,10 +20,10 @@ export function ThemeProvider({
 }: Props) {
   return (
     <NextThemesProvider
-      attribute={attribute}
+      
       defaultTheme={defaultTheme}
       enableSystem={enableSystem}
-      disableTransitionOnChange={disableTransitionOnChange}
+      disableTransitionOnChange={disableTransitionOnChange
     >
       {children}
     </NextThemesProvider>
