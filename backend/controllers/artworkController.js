@@ -18,9 +18,11 @@ exports.createArtwork = async (req, res) => {
 
     // ✅ Populate artist (username + email)
     await artwork.populate("artist", "username email");
+    
 
     res.status(201).json(artwork);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: error.message });
   }
 };
