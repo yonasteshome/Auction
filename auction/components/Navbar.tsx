@@ -17,7 +17,7 @@ export default function Navbar({ onLogout }: { onLogout?: () => void }) {
             🎨 ArtAuction
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu uuu */}
           <div className="hidden md:flex items-center space-x-6">
             <Link href="/profile" className="hover:text-gray-300">
               Profile
