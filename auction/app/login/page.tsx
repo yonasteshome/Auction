@@ -43,7 +43,7 @@ export default function LoginPage() {
           />
         </div>
 
-        {/* Right side - Form */}
+        {/* Right side to do - Form */}
         <div className="flex items-center justify-center p-6">
           <Card className="w-full max-w-sm border-none shadow-none">
             <CardHeader className="text-center">
