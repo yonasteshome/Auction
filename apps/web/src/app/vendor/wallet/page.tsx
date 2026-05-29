@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+﻿export const dynamic = "force-dynamic";
 
 import { apiClient, ApiError } from "@/lib/api";
 import { formatMoney } from "../_lib/vendor-api";
@@ -78,7 +78,7 @@ export default async function VendorWalletPage() {
     <main className="min-h-[calc(100vh-4rem)] p-4 md:ml-64 md:p-8">
       <div className="mx-auto max-w-6xl space-y-6">
         <header className="rounded-2xl bg-white p-6 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">SpendSense Vendor Panel</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">MarketSight Vendor Panel</p>
           <h2 className="mt-2 text-3xl font-extrabold tracking-tight">Wallet</h2>
           <p className="mt-1 text-sm text-slate-500">Track the money credited from paid Chapa orders.</p>
         </header>

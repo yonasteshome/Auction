@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 
 export default function LandingPage() {
@@ -8,7 +8,7 @@ export default function LandingPage() {
       <header className="bg-white dark:bg-slate-950 shadow-sm sticky top-0 z-50 w-full">
         <nav className="flex justify-between items-center h-16 px-6 md:px-12 max-w-7xl mx-auto">
           <div className="text-xl font-black text-[#135bec] tracking-tight">
-            SpendSense Ethiopia
+            MarketSight Ethiopia
           </div>
           
           {/* Desktop Nav */}
@@ -179,7 +179,7 @@ export default function LandingPage() {
               </div>
               <div className="relative z-10">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Ready to curate your wealth?</h2>
-                <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-10">Join thousands of Ethiopian professionals who are using SpendSense to simplify their financial lives.</p>
+                <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-10">Join thousands of Ethiopian professionals who are using MarketSight to simplify their financial lives.</p>
                 <Link href="/signup" className="bg-[#135bec] text-white px-10 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[#135bec]/30 active:scale-95 transition-all inline-block">
                   Get Started Free
                 </Link>
@@ -192,8 +192,8 @@ export default function LandingPage() {
       <footer className="bg-[#f6f6f8] dark:bg-slate-900 w-full border-t border-[#cbd5e1]/50">
         <div className="flex flex-col md:flex-row justify-between items-center py-10 px-6 md:px-12 max-w-7xl mx-auto gap-4">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <div className="text-lg font-bold text-slate-900 dark:text-slate-100">SpendSense Ethiopia</div>
-            <p className="text-slate-500 dark:text-slate-400 text-sm">© 2024 SpendSense Ethiopia. All rights reserved.</p>
+            <div className="text-lg font-bold text-slate-900 dark:text-slate-100">MarketSight Ethiopia</div>
+            <p className="text-slate-500 dark:text-slate-400 text-sm">© 2024 MarketSight Ethiopia. All rights reserved.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-6">
             <Link href="#" className="text-slate-500 dark:text-slate-400 text-sm hover:underline hover:text-[#135bec]">Privacy Policy</Link>

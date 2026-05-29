@@ -1,4 +1,4 @@
-import json
+﻿import json
 import logging
 import urllib.error
 import urllib.request
@@ -36,7 +36,7 @@ def _emit_realtime_bridge(user_id: str, event: str, payload: dict) -> None:
             import redis
 
             r = redis.from_url(redis_url, decode_responses=True)
-            r.publish("spendsense:notifications", envelope)
+            r.publish("MarketSight:notifications", envelope)
             logger.debug("Realtime notification published to Redis (%s)", event)
             return
         except Exception as exc:
@@ -79,7 +79,7 @@ def emit_realtime_broadcast(room: str, event: str, payload: dict) -> None:
             import redis
 
             r = redis.from_url(redis_url, decode_responses=True)
-            r.publish("spendsense:notifications", envelope)
+            r.publish("MarketSight:notifications", envelope)
             logger.debug("Realtime broadcast published to Redis (%s)", event)
             return
         except Exception as exc:
@@ -167,3 +167,4 @@ def on_vendor_verification_change(sender, instance, **kwargs):
             "status": new_status,
         },
     )
+

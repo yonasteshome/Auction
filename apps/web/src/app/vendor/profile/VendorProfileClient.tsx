@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import React, { FormEvent, useState, lazy, Suspense } from "react";
 import type { VendorProfile, BusinessHourEntry } from "../_lib/vendor-api";
 import { updateProfile } from "@/actions/vendor/updateProfile";
@@ -11,7 +11,7 @@ const CITY_OPTIONS = ["Addis Ababa", "Adama"] as const;
 
 export default function VendorProfileClient({ initialProfile }: { initialProfile: VendorProfile | null }) {
   const [profile, setProfile] = useState<VendorProfile | null>(initialProfile);
-  const [vendorId, setVendorId] = useState<string>(typeof window !== "undefined" ? localStorage.getItem("spendsense_vendor_id") || "" : "");
+  const [vendorId, setVendorId] = useState<string>(typeof window !== "undefined" ? localStorage.getItem("MarketSight_vendor_id") || "" : "");
   const [loading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -68,7 +68,7 @@ export default function VendorProfileClient({ initialProfile }: { initialProfile
         const vid = result.data.vendor_info?.id || result.data.vendor_info?.vendor_id;
         if (vid) {
           const vendorIdStr = String(vid);
-          localStorage.setItem("spendsense_vendor_id", vendorIdStr);
+          localStorage.setItem("MarketSight_vendor_id", vendorIdStr);
           setVendorId(vendorIdStr);
         }
 

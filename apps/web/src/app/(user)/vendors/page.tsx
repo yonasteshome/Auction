@@ -1,4 +1,4 @@
-import { VendorFilters } from "@/components/vendors/vendor-filters";
+﻿import { VendorFilters } from "@/components/vendors/vendor-filters";
 import { VendorGrid } from "@/components/vendors/vendor-grid";
 import { getVendors } from "@/lib/vendors";
 import { Button } from "@repo/ui/components/button";
@@ -6,7 +6,7 @@ import { Map } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Marketplace Vendors | SpendSense",
+  title: "Marketplace Vendors | MarketSight",
   description: "Discover verified sellers in the Ethiopian market.",
 };
 
@@ -92,3 +92,4 @@ export default async function VendorsPage({
     </div>
   );
 }
+

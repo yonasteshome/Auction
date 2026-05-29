@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Share2 } from "lucide-react";
@@ -21,8 +21,8 @@ export default function ShareVendorButton({
       : "";
 
     const shareData = {
-      title: `${shopName} on SpendSense Ethiopia`,
-      text: `Check out ${shopName} on SpendSense Ethiopia for cost-efficient shopping and verified prices!`,
+      title: `${shopName} on MarketSight Ethiopia`,
+      text: `Check out ${shopName} on MarketSight Ethiopia for cost-efficient shopping and verified prices!`,
       url: shareUrl,
     };
 
@@ -63,3 +63,4 @@ export default function ShareVendorButton({
     </Button>
   );
 }
+

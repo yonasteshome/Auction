@@ -1,4 +1,4 @@
-export const MARKETS_BY_REGION: Record<string, string[]> = {
+﻿export const MARKETS_BY_REGION: Record<string, string[]> = {
   "Addis Ababa": [
     "Merkato",
     "Shola",
@@ -29,4 +29,5 @@ export function gradesForItem(itemName: string): string[] {
   return [];
 }
 
-export const DRAFT_STORAGE_KEY = "spendsense-price-submission-draft";
+export const DRAFT_STORAGE_KEY = "MarketSight-price-submission-draft";
+

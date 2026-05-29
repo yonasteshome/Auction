@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback } from "react";
 import Link from "next/link";
@@ -169,7 +169,7 @@ export function Sidebar({ mobile, onClose }: SidebarProps) {
               <CreditCard className="size-5" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-bold leading-none text-foreground">SpendSense</h1>
+              <h1 className="text-lg font-bold leading-none text-foreground">MarketSight</h1>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Ethiopia</p>
             </div>
           </Link>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Django REST API auth helpers. Base URL: NEXT_PUBLIC_API_URL or http://127.0.0.1:8000
  */
 
@@ -7,8 +7,8 @@ export const API_BASE =
     ? process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, "")
     : "http://127.0.0.1:8000";
 
-const ACCESS_KEY = "spendsense_access_token";
-const REFRESH_KEY = "spendsense_refresh_token";
+const ACCESS_KEY = "MarketSight_access_token";
+const REFRESH_KEY = "MarketSight_refresh_token";
 
 export function saveTokens(access: string, refresh: string): void {
   if (typeof window === "undefined") return;
@@ -128,3 +128,4 @@ export function formatApiError(data: unknown): string {
 
   return "Request failed. Please try again.";
 }
+

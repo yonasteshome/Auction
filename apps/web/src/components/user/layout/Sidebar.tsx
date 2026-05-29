@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 
 export default function Sidebar() {
   return (
@@ -8,7 +8,7 @@ export default function Sidebar() {
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance_wallet</span>
         </div>
         <div>
-          <h1 className="text-xl font-bold text-[#135bec] leading-none">SpendSense</h1>
+          <h1 className="text-xl font-bold text-[#135bec] leading-none">MarketSight</h1>
           <p className="text-[10px] font-semibold text-on-surface-variant tracking-widest uppercase mt-1">Ethiopia</p>
         </div>
       </div>

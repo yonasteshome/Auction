@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
@@ -362,7 +362,7 @@ export default function ReviewSectionClient({
               {eligibility === "already_reviewed" ? "Edit Your Review" : "Write a Vendor Review"}
             </DialogTitle>
             <DialogDescription className="text-sm text-muted-foreground">
-              Rate your landmarks location and quality to guide the SpendSense community.
+              Rate your landmarks location and quality to guide the MarketSight community.
             </DialogDescription>
           </DialogHeader>
 
@@ -457,3 +457,4 @@ export default function ReviewSectionClient({
     </div>
   );
 }
+

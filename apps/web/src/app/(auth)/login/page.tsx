@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense, useMemo, useState } from "react";
 import Link from "next/link";
@@ -69,7 +69,7 @@ function LoginPageContent() {
 					<div className="space-y-5">
 						<div className="inline-flex items-center gap-2 rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium backdrop-blur">
 							<Wallet className="size-4" />
-							SpendSense Ethiopia
+							MarketSight Ethiopia
 						</div>
 						<div className="space-y-3">
 							<h1 className="text-4xl font-bold leading-tight">Smart spending starts here.</h1>

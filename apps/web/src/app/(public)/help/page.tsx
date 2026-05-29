@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Help & support | SpendSense",
+  title: "Help & support | MarketSight",
 };
 
 export default function HelpPage() {
@@ -29,3 +29,4 @@ export default function HelpPage() {
     </article>
   );
 }
+

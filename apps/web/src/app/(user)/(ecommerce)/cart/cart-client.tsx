@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useTransition } from "react";
 import {
@@ -643,14 +643,14 @@ export function CartClient({ initialItems, budget, summary, initialError = null 
           </Card>
         )}
 
-        {/* SpendSense Tip */}
+        {/* MarketSight Tip */}
         <div className="relative overflow-hidden rounded-xl bg-primary p-5 text-primary-foreground group">
           <div className="relative z-10">
             <div className="flex items-center gap-2 mb-3">
               <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 backdrop-blur-md">
                 <Lightbulb size={14} fill="currentColor" />
               </div>
-              <span className="text-xs font-bold uppercase tracking-widest">SpendSense Tip</span>
+              <span className="text-xs font-bold uppercase tracking-widest">MarketSight Tip</span>
             </div>
             <p className="text-sm text-primary-foreground/90 leading-relaxed">
               Bundling items per vendor reduces delivery costs. You could save up to{" "}
@@ -675,3 +675,4 @@ export function CartClient({ initialItems, budget, summary, initialError = null 
     </div>
   );
 }
+

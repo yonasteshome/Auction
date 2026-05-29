@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import { useAuth } from "@/providers/auth-provider";
 import { Button } from "@repo/ui/components/button";
 import { useState } from "react";
@@ -78,7 +78,7 @@ export default function AdminPanelShell({ title, subtitle, activeTab, children }
       <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-slate-100 bg-white px-6 shadow-sm">
         <div className="flex items-center gap-8 ">
           <div className="my-8 px-5 ">
-            <h2 className="text-lg font-black tracking-tight text-blue-700">SpendSense Admin</h2>
+            <h2 className="text-lg font-black tracking-tight text-blue-700">MarketSight Admin</h2>
             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Precision Spend Analysis</p>
           </div>
           {/* <div className="hidden w-72 items-center rounded-lg bg-slate-100 px-3 py-1.5 md:flex">
@@ -107,7 +107,7 @@ export default function AdminPanelShell({ title, subtitle, activeTab, children }
               <DropdownMenuLabel>
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">{user?.full_name ?? "Admin User"}</p>
-                  <p className="text-xs leading-none text-muted-foreground">{user?.email ?? "admin@spendsense.com"}</p>
+                  <p className="text-xs leading-none text-muted-foreground">{user?.email ?? "admin@MarketSight.com"}</p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -177,3 +177,4 @@ export default function AdminPanelShell({ title, subtitle, activeTab, children }
     </div>
   );
 }
+

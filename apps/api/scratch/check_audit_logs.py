@@ -1,9 +1,9 @@
-import os
+﻿import os
 import django
 import sys
 
 # Set up Django environment
-sys.path.append('c:\\Users\\HP\\Documents\\Projects\\SpendSense\\apps\\api')
+sys.path.append('c:\\Users\\HP\\Documents\\Projects\\MarketSight\\apps\\api')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core_api.settings')
 django.setup()
 
@@ -19,3 +19,4 @@ def check_audit_logs():
 
 if __name__ == "__main__":
     check_audit_logs()
+

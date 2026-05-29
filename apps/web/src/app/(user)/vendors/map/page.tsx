@@ -1,9 +1,9 @@
-import { getVendors } from "@/lib/vendors";
+﻿import { getVendors } from "@/lib/vendors";
 import { getMarketItems } from "@/lib/market";
 import { VendorMapClient } from "@/components/vendors/vendor-map-client";
 
 export const metadata = {
-  title: "Vendor Map Discovery | SpendSense",
+  title: "Vendor Map Discovery | MarketSight",
   description: "Locate verified sellers and find cheap price zones near you.",
 };
 
@@ -24,3 +24,4 @@ export default async function VendorMapPage({
 
   return <VendorMapClient initialData={data} searchParams={resolvedParams} marketItems={marketItems} />;
 }
+

@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+﻿export const dynamic = "force-dynamic";
 
 import { getMarketItems, getMarketCategories } from "@/lib/market";
 import ProductCreateForm from "./ProductCreateForm";
@@ -9,8 +9,8 @@ import { apiClient } from "@/lib/api";
 import { VendorProfile } from "../../_lib/vendor-api";
 
 export const metadata = {
-  title: "New Product | SpendSense Vendor",
-  description: "Create a new product listing on the SpendSense marketplace.",
+  title: "New Product | MarketSight Vendor",
+  description: "Create a new product listing on the MarketSight marketplace.",
 };
 
 async function ProductCreatePageContent() {

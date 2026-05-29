@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   ArrowLeft,
@@ -75,7 +75,7 @@ export default function VendorRegisterPage() {
     <div className="min-h-screen bg-[#f6f6f8] text-[#111318] antialiased">
       <header className="sticky top-0 z-40 flex h-16 items-center justify-between bg-white/80 px-8 shadow-sm backdrop-blur-md">
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold tracking-tight text-[#135bec]">SpendSense</span>
+          <span className="text-xl font-bold tracking-tight text-[#135bec]">MarketSight</span>
           <span className="rounded-full bg-[#e2e6ff] px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-[#00174c]">
             Vendor Portal
           </span>
@@ -93,7 +93,7 @@ export default function VendorRegisterPage() {
 
       <main className="flex flex-col items-center justify-start px-4 pb-24 pt-12 sm:px-6">
         <div className="mb-12 w-full max-w-3xl text-center">
-          <h1 className="mb-2 text-3xl font-extrabold tracking-tight">Join the SpendSense Ecosystem</h1>
+          <h1 className="mb-2 text-3xl font-extrabold tracking-tight">Join the MarketSight Ecosystem</h1>
           <p className="text-lg text-slate-500">Set up your vendor account to start managing orders across Ethiopia.</p>
         </div>
 
@@ -214,8 +214,9 @@ export default function VendorRegisterPage() {
       <div className="fixed -right-20 bottom-10 -z-10 h-96 w-96 rounded-full bg-[#485c9a]/5 blur-3xl" />
 
       <footer className="mt-auto border-t border-slate-300/20 py-8 text-center text-slate-500">
-        <p className="text-xs font-medium tracking-tight">© 2024 SpendSense Ethiopia. All rights reserved.</p>
+        <p className="text-xs font-medium tracking-tight">© 2024 MarketSight Ethiopia. All rights reserved.</p>
       </footer>
     </div>
   );
 }
+

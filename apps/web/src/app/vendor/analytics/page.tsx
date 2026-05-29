@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
     BarChart3,
@@ -102,7 +102,7 @@ export default function VendorAnalyticsPage() {
           <div className="flex items-end justify-between">
             <div>
               <h2 className="mb-2 text-3xl font-bold tracking-tight">Vendor Analytics</h2>
-              <p className="text-slate-500">Performance overview for SpendSense Ethiopia (Last 30 Days)</p>
+              <p className="text-slate-500">Performance overview for MarketSight Ethiopia (Last 30 Days)</p>
               {vendorId ? <p className="mt-1 text-xs text-slate-500">Vendor id: {vendorId}</p> : null}
               {error ? <p className="mt-1 text-xs text-slate-500">Backend note: {error}</p> : null}
             </div>
@@ -264,3 +264,4 @@ function LegendRow({ label, value, color }: { label: string; value: string; colo
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
@@ -147,7 +147,7 @@ export default function CheckoutPage() {
                 <ArrowLeft className="h-5 w-5 text-muted-foreground" />
               </Button>
             </Link>
-            <span className="text-lg font-bold">SpendSense</span>
+            <span className="text-lg font-bold">MarketSight</span>
           </div>
 
           {/* Stepper - Hidden on small mobile */}
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                     </Button>
 
                     <p className="text-[10px] text-center text-muted-foreground px-4 leading-relaxed">
-                      By completing your purchase, you agree to SpendSense's{" "}
+                      By completing your purchase, you agree to MarketSight's{" "}
                       <Link href="#" className="underline">Terms of Service</Link> and{" "}
                       <Link href="#" className="underline">Privacy Policy</Link>.
                     </p>
@@ -387,3 +387,4 @@ function TrustLine({ icon, text }: { icon: React.ReactNode; text: string }) {
     </div>
   );
 }
+

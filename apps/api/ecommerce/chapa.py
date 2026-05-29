@@ -1,4 +1,4 @@
-from decimal import Decimal
+﻿from decimal import Decimal
 import json
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -10,7 +10,7 @@ class ChapaInitError(Exception):
     pass
 
 
-def initialize_chapa_checkout(*, tx_ref, amount, email, first_name='SpendSense', last_name='User'):
+def initialize_chapa_checkout(*, tx_ref, amount, email, first_name='MarketSight', last_name='User'):
     """
     Initialize Chapa checkout and return checkout_url.
     Uses mock URL when CHAPA_USE_MOCK=true or no secret key is configured.
@@ -22,13 +22,13 @@ def initialize_chapa_checkout(*, tx_ref, amount, email, first_name='SpendSense',
         'amount': str(Decimal(amount)),
         'currency': 'ETB',
         'email': email,
-        'first_name': first_name or 'SpendSense',
+        'first_name': first_name or 'MarketSight',
         'last_name': last_name or 'User',
         'tx_ref': tx_ref,
         'callback_url': settings.CHAPA_CALLBACK_URL,
         'return_url': settings.CHAPA_RETURN_URL,
         'customization': {
-            'title': 'SpendSense',
+            'title': 'MarketSight',
             'description': 'Smart shopping order payment',
         },
     }
@@ -61,3 +61,4 @@ def initialize_chapa_checkout(*, tx_ref, amount, email, first_name='SpendSense',
     if not checkout_url:
         raise ChapaInitError(f'Chapa response missing checkout_url: {data}')
     return checkout_url
+

@@ -1,4 +1,4 @@
-import { getUserPriceAlerts } from "@/actions/price-alerts";
+﻿import { getUserPriceAlerts } from "@/actions/price-alerts";
 import { Bell, AlertTriangle, CheckCircle2, Clock, Package } from "lucide-react";
 import { PriceAlertCard } from "@/components/product-detail/price-alert-card";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Price Alerts | SpendSense Ethiopia",
+  title: "Price Alerts | MarketSight Ethiopia",
   description: "Manage your price alert subscriptions and get notified when prices drop.",
 };
 
@@ -100,3 +100,4 @@ export default async function PriceAlertsPage() {
     </div>
   );
 }
+

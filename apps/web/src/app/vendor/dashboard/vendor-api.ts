@@ -1,4 +1,4 @@
-export interface VendorRegistrationPayload {
+﻿export interface VendorRegistrationPayload {
   shop_name: string;
   city: string;
   address: string;
@@ -73,14 +73,14 @@ function getAccessToken(): string | null {
   const cookieToken = document.cookie
     .split(";")
     .map((part) => part.trim())
-    .find((part) => part.startsWith("spendsense_access_token="))
+    .find((part) => part.startsWith("MarketSight_access_token="))
     ?.split("=")
     .slice(1)
     .join("=");
 
   return (
     cookieToken ||
-    window.localStorage.getItem("spendsense_access_token") ||
+    window.localStorage.getItem("MarketSight_access_token") ||
     window.localStorage.getItem("access") ||
     window.localStorage.getItem("access_token") ||
     window.localStorage.getItem("accessToken") ||
@@ -93,7 +93,7 @@ export function getStoredVendorId(): string {
     return "";
   }
 
-  return window.localStorage.getItem("spendsense_vendor_id") || "";
+  return window.localStorage.getItem("MarketSight_vendor_id") || "";
 }
 
 export function setStoredVendorId(vendorId: string): void {
@@ -101,7 +101,7 @@ export function setStoredVendorId(vendorId: string): void {
     return;
   }
 
-  window.localStorage.setItem("spendsense_vendor_id", vendorId);
+  window.localStorage.setItem("MarketSight_vendor_id", vendorId);
 }
 
 async function requestJson<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -371,3 +371,4 @@ export function formatMoney(amount: number | undefined, currency = "ETB"): strin
   const value = Number.isFinite(amount) ? Number(amount) : 0;
   return `${currency} ${value.toLocaleString()}`;
 }
+

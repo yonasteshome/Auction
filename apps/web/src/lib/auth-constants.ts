@@ -1,7 +1,7 @@
-export const AUTH_COOKIE_NAME = "spendsense_access_token";
-export const AUTH_REFRESH_COOKIE_NAME = "spendsense_refresh_token";
+﻿export const AUTH_COOKIE_NAME = "MarketSight_access_token";
+export const AUTH_REFRESH_COOKIE_NAME = "MarketSight_refresh_token";
 export const DEFAULT_AUTH_REDIRECT = "/dashboard";
-export const AUTH_PROFILE_COOKIE_NAME = "spendsense_profile";
+export const AUTH_PROFILE_COOKIE_NAME = "MarketSight_profile";
 
 export type AppRole = "user" | "vendor" | "admin" | "analyst";
 
@@ -55,3 +55,4 @@ export function sanitizeReturnTo(value: string | null | undefined): string {
 
   return value;
 }
+

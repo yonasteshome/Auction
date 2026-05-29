@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+﻿export const dynamic = "force-dynamic";
 
 import { apiClient } from "@/lib/api";
 import { type ExpenseRecord } from "@/types/finance";
@@ -7,7 +7,7 @@ import { CreditCard, CalendarDays, CheckCircle2, History } from "lucide-react";
 import { format } from "date-fns";
 
 export const metadata = {
-  title: "Payment History | SpendSense",
+  title: "Payment History | MarketSight",
 };
 
 export default async function PaymentHistoryPage() {

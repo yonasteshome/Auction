@@ -1,4 +1,4 @@
-import random
+﻿import random
 from datetime import date, timedelta
 from decimal import Decimal
 
@@ -15,7 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # 1. Get or create a mock system user to be the 'submitter'
         system_user, _ = User.objects.get_or_create(
-            email='seed@spendsense.io',
+            email='seed@MarketSight.io',
             defaults={
                 'full_name': 'System Seed',
                 'role': 'admin',
@@ -78,3 +78,4 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS(f'Successfully created {total_created} approved submissions.'))
         self.stdout.write(self.style.MIGRATE_LABEL('You can now run the SARIMA retrain endpoint!'))
+

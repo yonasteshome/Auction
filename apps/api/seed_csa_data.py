@@ -1,4 +1,4 @@
-import os
+﻿import os
 import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core_api.settings')
@@ -26,7 +26,7 @@ DATA = {
 
 demo_admin = User.objects.filter(role='admin').first()
 if not demo_admin:
-    demo_admin = User.objects.create(email='admin_csa@spendsense.local', full_name='Admin', role='admin')
+    demo_admin = User.objects.create(email='admin_csa@MarketSight.local', full_name='Admin', role='admin')
     demo_admin.set_password('DevPass123!')
     demo_admin.save()
 
@@ -55,3 +55,4 @@ for cat_name, items in DATA.items():
             print(f"  Created product: {prod_name} ({unit})")
 
 print("Done CSA Seeding.")
+

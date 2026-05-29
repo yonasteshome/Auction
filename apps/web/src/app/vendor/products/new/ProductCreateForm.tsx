@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { createListingAction } from "@/actions/vendor/listingActions";
 import { MarketCategory, MarketItem } from "@/types/api/vendor";
@@ -45,7 +45,7 @@ export default function ProductCreateForm({
   const [saving, setSaving] = useState(false);
 
   // useEffect(() => {
-  //   const storedId = localStorage.getItem("spendsense_vendor_id") || "";
+  //   const storedId = localStorage.getItem("MarketSight_vendor_id") || "";
   //   setVendorId(storedId);
   // }, []);
 
@@ -205,7 +205,7 @@ export default function ProductCreateForm({
               New Product
             </h2>
             <p className="mt-1 text-slate-500">
-              Provide details to showcase your product on the SpendSense
+              Provide details to showcase your product on the MarketSight
               marketplace.
             </p>
             {vendorId && (
@@ -512,7 +512,7 @@ export default function ProductCreateForm({
                 <div className="flex items-center gap-2 mb-2 text-[#135bec]">
                   <Verified size={18} />
                   <span className="text-[10px] font-black uppercase tracking-wider">
-                    SpendSense Marketplace
+                    MarketSight Marketplace
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
@@ -654,3 +654,4 @@ export default function ProductCreateForm({
     </div>
   );
 }
+

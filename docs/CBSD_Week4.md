@@ -1,6 +1,6 @@
-# CBSD — Week 4 coursework (single deliverable)
+﻿# CBSD — Week 4 coursework (single deliverable)
 
-SpendSense — component-based software development log. **One file** for the Google Doc mirror: **Progress**, **Ideation**, **Component model practice**, plus **process marks**.
+MarketSight — component-based software development log. **One file** for the Google Doc mirror: **Progress**, **Ideation**, **Component model practice**, plus **process marks**.
 
 **Allowed log rhythm:** three entries per week on **Mon–Wed–Fri**. This branch uses **2026-03-16 / 18 / 20** and **2026-03-23 / 25 / 27**.
 
@@ -16,7 +16,7 @@ For each hash: tag as *component built*, *integration practice*, *design pattern
 | `18e5554` | Integration practice | Settings + `.env`; DB config from environment. |
 | `1da540d` | Component built | Next.js + TypeScript + Tailwind app shell. |
 | `e51734c` | Component built | Shared UI (e.g. Select and related pieces). |
-| `f2bb9a8` | Refactoring / clean code | Client folder renamed to `spendsense-client`. |
+| `f2bb9a8` | Refactoring / clean code | Client folder renamed to `MarketSight-client`. |
 
 Verify: `git log --until='2026-03-10' --oneline -12 --date=short`
 
@@ -121,3 +121,4 @@ Verify: `git log --until='2026-04-02' --oneline -20 --date=short`
 **Component model tests:** happy path, expired token, replay, profile authz — see `apps/api/tests/test_week3_users.py`.
 
 **Patterns:** layered API (views → serializers → models); **RBAC** for admin lists vs self-service profile.
+

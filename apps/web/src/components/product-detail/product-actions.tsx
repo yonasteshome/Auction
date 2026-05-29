@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Button } from "@repo/ui/components/button";
 import { Bell, PencilLine, Scale, Share2 } from "lucide-react";
@@ -21,7 +21,7 @@ export function ProductActions({ productId, unit, currentPrice, city, isAuthenti
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: "SpendSense Price Comparison",
+        title: "MarketSight Price Comparison",
         url: window.location.href,
       }).catch(console.error);
     } else {
@@ -70,3 +70,4 @@ export function ProductActions({ productId, unit, currentPrice, city, isAuthenti
     </div>
   );
 }
+

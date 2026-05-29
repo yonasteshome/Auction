@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 
 import { cookies } from "next/headers";
 import { revalidatePath, revalidateTag } from "next/cache";
@@ -47,7 +47,7 @@ const CACHE_TAGS = {
   cart: "ecommerce:cart",
 } as const;
 
-const CART_COOKIE_KEY = "spendsense_cart_v1";
+const CART_COOKIE_KEY = "MarketSight_cart_v1";
 
 class EcommerceApiError extends Error {
   status: number;
@@ -629,3 +629,4 @@ export async function updateOrderStatus(
     throw toEcommerceApiError(error);
   }
 }
+

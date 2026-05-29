@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useAuth } from "@/providers/auth-provider";
 import { Button } from "@repo/ui/components/button";
@@ -47,7 +47,7 @@ export function VendorSidebar() {
           <Store size={18} />
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#135bec]">SpendSense</h1>
+          <h1 className="text-xl font-bold tracking-tight text-[#135bec]">MarketSight</h1>
           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Ethiopia Vendor</p>
         </div>
       </div>
@@ -90,7 +90,7 @@ export function VendorShell({ title, description, children }: VendorShellProps) 
     <div className="min-h-screen bg-slate-50 px-4 py-6 md:px-8">
       <div className="mx-auto max-w-7xl space-y-6">
         <header className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">SpendSense Vendor Panel</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">MarketSight Vendor Panel</p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900 md:text-3xl">{title}</h1>
           <p className="mt-1 text-sm text-slate-600">{description}</p>
           <nav className="mt-4 flex flex-wrap gap-2">
@@ -111,3 +111,4 @@ export function VendorShell({ title, description, children }: VendorShellProps) 
     </div>
   );
 }
+

@@ -1,10 +1,10 @@
-import AdminPanelShell from "../_components/admin-panel-shell";
+﻿import AdminPanelShell from "../_components/admin-panel-shell";
 import { getPendingVendors } from "@/lib/admin/vendors";
 import VerificationQueue from "./_components/verification-queue";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Vendor Verification | SpendSense Admin",
+  title: "Vendor Verification | MarketSight Admin",
   description: "Review and approve vendor business registrations.",
 };
 
@@ -40,3 +40,4 @@ function VerificationQueueSkeleton() {
     </div>
   );
 }
+

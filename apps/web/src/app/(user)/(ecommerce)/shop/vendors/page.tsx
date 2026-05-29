@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { 
@@ -90,7 +90,7 @@ export default function MarketplacePage() {
           {/* Loyalty Section */}
           <Card className="rounded-[2.5rem] border-none bg-slate-950 p-8 text-white flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-bold">SpendSense Plus</h3>
+              <h3 className="text-xl font-bold">MarketSight Plus</h3>
               <p className="text-slate-400 text-sm">You earned 12,450 points this month.</p>
             </div>
             <div className="space-y-4">

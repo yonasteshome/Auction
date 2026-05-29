@@ -1,4 +1,4 @@
-import csv
+﻿import csv
 from collections import defaultdict
 from datetime import date
 from decimal import Decimal
@@ -381,7 +381,7 @@ class FinanceExportView(APIView):
 
         if fmt == 'pdf':
             lines = [
-                'SpendSense Finance Export',
+                'MarketSight Finance Export',
                 f'User: {request.user.email}',
                 f'Period: {month or "all"}/{year or "all"}',
                 '',
@@ -392,7 +392,7 @@ class FinanceExportView(APIView):
             pdf_bytes = self._simple_pdf('\n'.join(lines))
             resp = HttpResponse(pdf_bytes, content_type='application/pdf')
             resp['Content-Disposition'] = (
-                f'attachment; filename="spendsense_expenses_{year or "all"}_{month or "all"}.pdf"'
+                f'attachment; filename="MarketSight_expenses_{year or "all"}_{month or "all"}.pdf"'
             )
             return resp
 
@@ -403,7 +403,7 @@ class FinanceExportView(APIView):
             w.writerow([e.id, e.category, e.amount, e.date.isoformat(), e.note or '', e.payment_method or ''])
 
         resp = HttpResponse(buffer.getvalue(), content_type='text/csv')
-        resp['Content-Disposition'] = f'attachment; filename="spendsense_expenses_{year or "all"}_{month or "all"}.csv"'
+        resp['Content-Disposition'] = f'attachment; filename="MarketSight_expenses_{year or "all"}_{month or "all"}.csv"'
         return resp
 
     def _simple_pdf(self, text):
@@ -502,3 +502,4 @@ class FinanceReportSummaryView(APIView):
                 "transaction_count": qs.count(),
             }
         )
+

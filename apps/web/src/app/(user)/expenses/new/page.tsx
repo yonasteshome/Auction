@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -181,7 +181,7 @@ export default function ExpenseNewPage() {
                                     src={c.image_url} 
                                     className="w-full h-full object-cover" 
                                     alt="" 
-                                    onError={(e) => (e.currentTarget.src = "https://api.spendsense.app/static/categories/default.jpg")}
+                                    onError={(e) => (e.currentTarget.src = "https://api.MarketSight.app/static/categories/default.jpg")}
                                   />
                                 </div>
                                 <span className="font-medium text-slate-700">{c.name}</span>
@@ -268,7 +268,7 @@ export default function ExpenseNewPage() {
                                     src={item.image_url} 
                                     className="w-full h-full object-cover" 
                                     alt="" 
-                                    onError={(e) => (e.currentTarget.src = "https://api.spendsense.app/static/products/default.jpg")}
+                                    onError={(e) => (e.currentTarget.src = "https://api.MarketSight.app/static/products/default.jpg")}
                                   />
                                 </div>
                                 <div className="flex flex-col">
@@ -395,4 +395,5 @@ export default function ExpenseNewPage() {
     </main>
   );
 }
+
 

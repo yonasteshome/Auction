@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Privacy | SpendSense Ethiopia",
+  title: "Privacy | MarketSight Ethiopia",
 };
 
 export default function PrivacyPage() {
@@ -24,3 +24,4 @@ export default function PrivacyPage() {
     </article>
   );
 }
+

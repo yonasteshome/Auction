@@ -1,4 +1,4 @@
-"""
+﻿"""
 Comprehensive seed file for SARIMA model testing.
 Creates users, items, and realistic price history data.
 Run: python manage.py seed_sarima_complete
@@ -44,7 +44,7 @@ class Command(BaseCommand):
         
         # Admin user
         admin_user, created = User.objects.get_or_create(
-            email='admin@spendsense.io',
+            email='admin@MarketSight.io',
             defaults={
                 'full_name': 'System Admin',
                 'role': 'admin',
@@ -64,7 +64,7 @@ class Command(BaseCommand):
         test_users = []
         for i in range(3):
             user, created = User.objects.get_or_create(
-                email=f'user{i+1}@spendsense.io',
+                email=f'user{i+1}@MarketSight.io',
                 defaults={
                     'full_name': f'Test User {i+1}',
                     'role': 'user',
@@ -169,3 +169,4 @@ class Command(BaseCommand):
         
         self.stdout.write(f'  ✓ Created {total_created} price submissions')
         return total_created
+

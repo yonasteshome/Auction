@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -24,7 +24,7 @@ function getIncomingBearerToken(req: Request) {
 
   const cookieHeader = req.headers.get("cookie") || "";
   const cookieParts = cookieHeader.split(";").map((part) => part.trim());
-  const accessCookie = cookieParts.find((part) => part.startsWith("spendsense_access_token="));
+  const accessCookie = cookieParts.find((part) => part.startsWith("MarketSight_access_token="));
   if (!accessCookie) {
     return null;
   }
@@ -83,3 +83,4 @@ export async function GET(req: Request) {
     return NextResponse.json({ detail: message }, { status: 500 });
   }
 }
+

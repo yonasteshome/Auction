@@ -1,4 +1,4 @@
-import logging
+﻿import logging
 from calendar import monthrange
 from datetime import date
 from decimal import Decimal
@@ -110,9 +110,9 @@ class PasswordResetRequestView(APIView):
             if not path.startswith('/'):
                 path = '/' + path
             reset_link = f'{base}{path}?uid={uid}&token={token}'
-            subject = 'Reset your SpendSense password'
+            subject = 'Reset your MarketSight password'
             body = (
-                'You asked to reset your SpendSense password.\n\n'
+                'You asked to reset your MarketSight password.\n\n'
                 f'Open this link in your browser (valid for a limited time):\n{reset_link}\n\n'
                 'If you did not request this, you can ignore this email.'
             )
@@ -709,3 +709,4 @@ class NotificationBulkUpdateView(APIView):
             return Response({"error": "invalid action"}, status=400)
             
         return Response({"status": "success"})
+

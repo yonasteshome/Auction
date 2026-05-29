@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -54,7 +54,7 @@ export default function OnboardingPage() {
   return (
     <div className="mx-auto max-w-lg space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Welcome to SpendSense</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Welcome to MarketSight</h1>
         <p className="mt-2 text-slate-600">Set your location and alert preferences to personalize your feed.</p>
       </div>
 
@@ -102,3 +102,4 @@ export default function OnboardingPage() {
     </div>
   );
 }
+

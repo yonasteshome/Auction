@@ -1,11 +1,11 @@
-import { KeyRound, Lightbulb, Palette, TrendingUp } from "lucide-react";
+﻿import { KeyRound, Lightbulb, Palette, TrendingUp } from "lucide-react";
 import AdminPanelShell from "../_components/admin-panel-shell";
 
 export default function SystemSettingsPage() {
   return (
     <AdminPanelShell
       activeTab="settings"
-      subtitle="Manage global thresholds, fees, and security integrations for the SpendSense platform."
+      subtitle="Manage global thresholds, fees, and security integrations for the MarketSight platform."
       title="System Configuration"
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
@@ -109,3 +109,4 @@ function SettingRow({ title, subtitle }: { title: string; subtitle: string }) {
     </div>
   );
 }
+

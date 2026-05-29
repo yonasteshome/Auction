@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+﻿import React, { Suspense } from "react";
 import { apiClient, ApiError } from "@/lib/api";
 import type { VendorPriceListResponse, VendorPriceListing } from "@/types/api/product-listing";
 import { ProductCard } from "@/components/products/product-card";
@@ -9,7 +9,7 @@ import { Package } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Products | SpendSense Ethiopia",
+  title: "Products | MarketSight Ethiopia",
   description:
     "Browse aggregated product listings with real-time prices from verified vendors across Ethiopia.",
 };
@@ -154,3 +154,4 @@ export default async function ProductsPage({ searchParams }: Props) {
     </div>
   );
 }
+

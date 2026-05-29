@@ -1,4 +1,4 @@
-# MarketSight
+﻿# MarketSight
 
 **MarketSight — local market insights and budgeting assistant (unique variant)**
 
@@ -34,7 +34,7 @@ This project utilizes a modern, decoupled hybrid architecture:
 
 The project is structured as a monorepo containing the frontend and the dual-backend architecture.
 ```text
-SpendSense/
+MarketSight/
 ├── apps/
 │   ├── api/                           # Django REST API + ML-oriented backend
 │   ├── realtime/                      # Standalone Express + Socket.io real-time server
@@ -52,6 +52,7 @@ SpendSense/
 ├── package.json                       # Root workspace scripts/dependencies
 └── README-monorepo.md                 # Monorepo usage notes
 ```
+
 
 
 

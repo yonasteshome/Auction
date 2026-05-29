@@ -1,4 +1,4 @@
-import uuid
+﻿import uuid
 from decimal import Decimal
 
 from django.db import transaction
@@ -243,7 +243,7 @@ class PurchaseCreateSerializer(serializers.Serializer):
             pass
         if payment_method == 'chapa':
             try:
-                full_name = (user.full_name or 'SpendSense User').split()
+                full_name = (user.full_name or 'MarketSight User').split()
                 first_name = full_name[0]
                 last_name = ' '.join(full_name[1:]) if len(full_name) > 1 else 'User'
                 rec.payment_url = initialize_chapa_checkout(
@@ -365,7 +365,7 @@ class PurchaseBulkCreateSerializer(serializers.Serializer):
 
             if payment_method == 'chapa':
                 try:
-                    full_name = (user.full_name or 'SpendSense User').split()
+                    full_name = (user.full_name or 'MarketSight User').split()
                     first_name = full_name[0]
                     last_name = ' '.join(full_name[1:]) if len(full_name) > 1 else 'User'
                     checkout_url = initialize_chapa_checkout(
@@ -472,3 +472,4 @@ class VendorReviewSerializer(serializers.ModelSerializer):
             rating_count=count,
         )
         return review
+
