@@ -1,17 +1,11 @@
-# 🛒 SpendSense Ethiopia
+# MarketSight
 
-**Cost of Living Tracker, Budget Assistant & Smart Shopping Platform**
+**MarketSight — local market insights and budgeting assistant (unique variant)**
 
-SpendSense Ethiopia is a comprehensive, hybrid-architecture web platform designed to help Ethiopian consumers track the rising cost of living, manage personal budgets, and make smart shopping decisions. The platform leverages crowdsourced market data, vendor integrations, and machine learning to forecast prices and recommend the most cost-effective shopping options.
+MarketSight is a hybrid web platform that demonstrates budget tracking, market intelligence, and real-time alerts features. This repository is a unique variant prepared for private evaluation and task-authoring workflows.
 
-*This project is submitted to the Department of Software Engineering, College of Electrical Engineering and Computing at Adama Science and Technology University (ASTU).*
-
-## 👥 Meet the Team
-* **Yonas Zekariyas**
-* * **Yonas Adane**
-* **Azariel Tesfaye**
-* **Yonas Teshome**
-* **Sumaya Adem**
+## 👥 Project Team
+- Project contributors (private)
 ---
 
 ## ✨ Core Features

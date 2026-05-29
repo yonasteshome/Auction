@@ -11,7 +11,7 @@ from users.models import User, Vendor
 
 demo_admin = User.objects.filter(role='admin').first()
 if not demo_admin:
-    demo_admin = User.objects.create(email='admin@spendsense.local', full_name='Admin', role='admin')
+    demo_admin = User.objects.create(email='admin@marketsight.local', full_name='Admin', role='admin')
     demo_admin.set_password('DevPass123!')
     demo_admin.save()
 

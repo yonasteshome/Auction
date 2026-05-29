@@ -1,6 +1,6 @@
 // ============================================================
-// SpendSense Ethiopia - Prisma Database Seeder
-// Cost of Living Tracker, Budget Assistant & Smart Shopping Platform
+// MarketSight - Prisma Database Seeder (unique variant)
+// Local market insights & budgeting demo data
 // Generated: 2026-04-28
 // Total Records: ~54,000+
 // Run with: npx ts-node prisma/seed.ts
@@ -209,7 +209,7 @@ function generateAddress(city: string): string {
 
 async function main() {
   const startTime = Date.now();
-  console.log('🌱 Starting SpendSense Ethiopia database seeding...\n');
+  console.log('🌱 Starting MarketSight database seeding...\n');
 
   // Clear existing data
   // console.log('🧹 Clearing existing data...');
@@ -572,7 +572,7 @@ async function main() {
     notificationsData.push({
       id: i + 1,
       type: type,
-      message: randomChoice(messages[type] || ["New notification from SpendSense."]),
+      message: randomChoice(messages[type] || ["New notification from MarketSight." ]),
       is_read: Math.random() < 0.6,
       created_at: randomDate(startDate, now),
       user_id: randomChoice(usersData).id,
@@ -612,7 +612,7 @@ async function main() {
   // ============================================================
   console.log('⚙️ Creating system settings...');
   const settingsData = [
-    { id: 1, key: 'platform_name', value: '"SpendSense Ethiopia"', updated_at: now, updated_by_id: randomChoice(usersData).id },
+    { id: 1, key: 'platform_name', value: '"MarketSight"', updated_at: now, updated_by_id: randomChoice(usersData).id },
     { id: 2, key: 'default_currency', value: '"ETB"', updated_at: now, updated_by_id: randomChoice(usersData).id },
     { id: 3, key: 'price_spike_threshold', value: '0.15', updated_at: now, updated_by_id: randomChoice(usersData).id },
     { id: 4, key: 'budget_alert_threshold', value: '0.80', updated_at: now, updated_by_id: randomChoice(usersData).id },

@@ -43,10 +43,10 @@ from datetime import date, timedelta
 import random
 
 User = get_user_model()
-demo_user = User.objects.filter(email='demo@spendsense.local').first()
+demo_user = User.objects.filter(email='demo@marketsight.local').first()
 
 if not demo_user:
-    demo_user = User.objects.create(email='demo@spendsense.local', full_name='Demo')
+    demo_user = User.objects.create(email='demo@marketsight.local', full_name='Demo')
     demo_user.set_password('DevPass123!')
     demo_user.save()
 

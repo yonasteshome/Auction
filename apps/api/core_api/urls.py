@@ -14,9 +14,9 @@ from market.views import AdminMLMonitoringView, AdminMLRetrainView, AdminMLStatu
 
 schema_view = get_schema_view(
     openapi.Info(
-        title='SpendSense API',
+        title='MarketSight API',
         default_version='v1',
-        description='SpendSense Ethiopia — Cost of Living, Budget & Smart Shopping API',
+        description='MarketSight — Local Market Insights & Budgeting API',
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),

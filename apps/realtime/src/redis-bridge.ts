@@ -2,7 +2,7 @@ import type { Server } from "socket.io";
 import { log } from "@repo/logger";
 
 /**
- * Optional Redis PUB/SUB bridge: Django publishes JSON to `spendsense:notifications`
+ * Optional Redis PUB/SUB bridge: Django publishes JSON to `marketsight:notifications`
  * when REDIS_URL is set; otherwise Django uses HTTP POST /internal/emit only.
  */
 export function attachRedisNotificationBridge(io: Server): void {
@@ -20,9 +20,9 @@ export function attachRedisNotificationBridge(io: Server): void {
       });
 
       void sub
-        .subscribe("spendsense:notifications")
+        .subscribe("marketsight:notifications")
         .then(() => {
-          log("Redis subscribed to spendsense:notifications");
+          log("Redis subscribed to marketsight:notifications");
         })
         .catch((err: Error) => {
           log(`Redis subscribe failed: ${err.message}`);

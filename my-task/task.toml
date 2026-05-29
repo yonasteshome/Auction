@@ -1,0 +1,5 @@
+[task]
+author_name = "Your Name"
+author_email = "you@example.com"
+difficulty = "medium"
+category = "bug"

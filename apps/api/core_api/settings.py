@@ -222,7 +222,7 @@ PASSWORD_RESET_FRONTEND_PATH = os.environ.get(
     '/reset-password',
 )
 
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'SpendSense <noreply@spendsense.local>')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'MarketSight <noreply@marketsight.local>')
 EMAIL_BACKEND = os.environ.get(
     'EMAIL_BACKEND',
     'django.core.mail.backends.console.EmailBackend'

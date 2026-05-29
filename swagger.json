@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "SpendSense API",
-    "description": "SpendSense Ethiopia — Cost of Living, Budget & Smart Shopping API",
+    "title": "MarketSight API",
+    "description": "MarketSight — Local Market Insights & Budgeting API",
     "version": "v1"
   },
   "host": "localhost:8000",
