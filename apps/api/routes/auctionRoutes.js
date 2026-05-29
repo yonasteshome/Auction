@@ -3,6 +3,8 @@ const router = express.Router();
 const {
   createAuction,
   getAuctions,
+  getActiveAuctions,
+  getAuctionInsights,
   getAuctionById,
   updateAuction,
   deleteAuction,
@@ -16,6 +18,8 @@ router.post("/", authMiddleware, requireRole(["admin","artist"]), createAuction)
 
 // ✅ Everyone can view auctions
 router.get("/", getAuctions);
+router.get("/active", getActiveAuctions);
+router.get("/insights", getAuctionInsights);
 router.get("/:id", getAuctionById);
 
 // ✅ Only sellers/admins can update or delete their auctions
@@ -25,15 +29,6 @@ router.put("/:id/end", authMiddleware, requireRole(["admin","artist"]), endAucti
 router.delete("/:id", authMiddleware, requireRole(["artist", "admin"]), deleteAuction);
 
 // ✅ Get only active auctions
-router.get("/active", async (req, res) => {
-  try {
-    const now = new Date()
-    const activeAuctions = await Auction.find({ endTime: { $gt: now } })
-    res.json(activeAuctions)
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch active auctions" })
-  }
-})
 // ✅ Get logged-in artist's auctions
 router.get("/my-auctions", authMiddleware, requireRole(["artist"]), getAuctionsByArtist);
 module.exports = router;

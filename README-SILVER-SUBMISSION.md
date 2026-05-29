@@ -14,7 +14,6 @@ Pre-submission checklist
 
 Optional next steps I can do for you
 - Create a task template directory (`my-task/`) for authoring Silver tasks (instruction.md, tests/, solution/, environment/Dockerfile).
-- Generate a more specific per-task `environment/Dockerfile` tailored to an app inside `apps/` or `SpendSense/` with pinned test deps.
 - Run a local Harbor null/oracle test (requires Harbor + Docker on your machine).
 
 Tell me which of the optional next steps you'd like me to take.

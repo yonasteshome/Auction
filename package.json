@@ -4,8 +4,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "SpendSense/*"
+    "packages/*"
   ],
   "scripts": {
     "dev": "turbo dev",

@@ -1,6 +1,8 @@
 const Auction = require("../models/Auction");
 const Bid = require("../models/Bid");
 
+const MS_PER_HOUR = 60 * 60 * 1000;
+
 
 // 🔄 Helper: update status based on time unless already ended manually
 const updateAuctionStatus = (auction) => {
@@ -51,16 +53,32 @@ const createAuction = async (req, res) => {
   }
 };
 
+const fetchAuctionsWithStatus = async () => {
+  const auctions = await Auction.find()
+    .populate("artwork", "title imageUrl")
+    .populate("seller", "username email");
+
+  return auctions.map((auction) => updateAuctionStatus(auction));
+};
+
 // ✅ Get all auctions (auto-update status)
 const getAuctions = async (req, res) => {
   try {
-    let auctions = await Auction.find()
-      .populate("artwork", "title imageUrl")
-      .populate("seller", "username email");
-
-    auctions = auctions.map((auction) => updateAuctionStatus(auction));
+    const auctions = await fetchAuctionsWithStatus();
 
     res.json(auctions);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// ✅ Get only currently active auctions
+const getActiveAuctions = async (req, res) => {
+  try {
+    const auctions = await fetchAuctionsWithStatus();
+    const activeAuctions = auctions.filter((auction) => auction.status === "active");
+
+    res.json(activeAuctions);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -79,6 +97,67 @@ const getAuctionById = async (req, res) => {
     auction = updateAuctionStatus(auction);
 
     res.json(auction);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// ✅ Get auction insights for the dashboard-style UI
+const getAuctionInsights = async (req, res) => {
+  try {
+    const auctions = await fetchAuctionsWithStatus();
+    const auctionIds = auctions.map((auction) => auction._id);
+    const bids = auctionIds.length
+      ? await Bid.find({ auction: { $in: auctionIds } }).sort({ amount: -1 })
+      : [];
+
+    const now = new Date();
+    const activeAuctions = auctions.filter((auction) => auction.status === "active");
+    const upcomingAuctions = auctions.filter((auction) => auction.status === "upcoming");
+    const endedAuctions = auctions.filter((auction) => auction.status === "ended");
+    const closingSoonAuctions = activeAuctions.filter(
+      (auction) => new Date(auction.endTime).getTime() - now.getTime() <= 24 * MS_PER_HOUR
+    );
+
+    const totalStartingPrice = auctions.reduce((sum, auction) => sum + (auction.startPrice || 0), 0);
+    const totalCurrentPrice = auctions.reduce(
+      (sum, auction) => sum + (auction.currentPrice || auction.startPrice || 0),
+      0
+    );
+    const topAuction = auctions.reduce((currentTop, auction) => {
+      if (!currentTop) return auction;
+      const currentTopPrice = currentTop.currentPrice || currentTop.startPrice || 0;
+      const auctionPrice = auction.currentPrice || auction.startPrice || 0;
+      return auctionPrice > currentTopPrice ? auction : currentTop;
+    }, null);
+
+    res.json({
+      totals: {
+        auctions: auctions.length,
+        active: activeAuctions.length,
+        upcoming: upcomingAuctions.length,
+        ended: endedAuctions.length,
+        bids: bids.length,
+      },
+      pricing: {
+        averageStartingPrice: auctions.length ? totalStartingPrice / auctions.length : 0,
+        averageCurrentPrice: auctions.length ? totalCurrentPrice / auctions.length : 0,
+      },
+      closingSoon: closingSoonAuctions.map((auction) => ({
+        id: auction._id,
+        title: auction.artwork?.title || "Untitled Artwork",
+        currentPrice: auction.currentPrice || auction.startPrice || 0,
+        endTime: auction.endTime,
+      })),
+      topAuction: topAuction
+        ? {
+            id: topAuction._id,
+            title: topAuction.artwork?.title || "Untitled Artwork",
+            currentPrice: topAuction.currentPrice || topAuction.startPrice || 0,
+            endTime: topAuction.endTime,
+          }
+        : null,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -180,6 +259,8 @@ const getAuctionsByArtist = async (req, res) => {
 module.exports = {
   createAuction,
   getAuctions,
+  getActiveAuctions,
+  getAuctionInsights,
   getAuctionById,
   updateAuction,
   deleteAuction,

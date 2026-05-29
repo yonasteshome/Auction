@@ -3,6 +3,7 @@
 
 import { Button } from "@repo/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui/card"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Navbar from "../../components/userNavbar"; // ✅ import Navbar
@@ -46,7 +47,12 @@ export default function AuctionList() {
       <Navbar />
 
       <main className="pt-20 px-4 pb-8 max-w-6xl mx-auto">
-        <h1 className="text-2xl font-bold text-center mb-6">🔥 Active Auctions</h1>
+        <div className="mb-6 flex flex-col items-center justify-between gap-3 sm:flex-row">
+          <h1 className="text-2xl font-bold text-center sm:text-left">🔥 Active Auctions</h1>
+          <Button asChild variant="outline">
+            <Link href="/auctions/insights">View insights</Link>
+          </Button>
+        </div>
 
         {/* ✅ Responsive Grid (1 col on mobile, 2 on md, 3 on lg) */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
