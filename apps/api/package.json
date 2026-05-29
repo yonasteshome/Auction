@@ -1,5 +1,5 @@
 {
-  "name": "backend-django-unique-20260529",
+  "name": "backend-django",
   "scripts": {
     "dev": ".\\venv\\Scripts\\python manage.py runserver",
     "build": ".\\venv\\Scripts\\python -m pip install -r requirements.txt",
