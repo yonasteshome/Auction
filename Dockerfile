@@ -2,20 +2,15 @@ FROM node:20
 
 WORKDIR /workspace
 
-# Copy only lockfiles / package manifests first to leverage layer caching
-COPY package.json package-lock.json* ./
+COPY auction/package.json auction/package-lock.json ./auction/
+COPY backend/package.json backend/package-lock.json ./backend/
 
-# If a lockfile is present, use npm ci (lockfile-driven installs are allowed)
-RUN if [ -f package-lock.json ]; then \
-  npm ci --unsafe-perm --no-audit --no-fund; \
-  else echo "No root package-lock.json found; skipping npm ci"; fi
+RUN cd auction && npm ci --unsafe-perm --no-audit --no-fund && \
+    cd ../backend && npm ci --unsafe-perm --no-audit --no-fund
 
-# Copy the rest of the repo
-COPY . .
+COPY auction ./auction
+COPY backend ./backend
 
-# Build step (best-effort). Keep non-fatal so the Docker build can still succeed
-# if the project doesn't expose a build script at repo root; platform reviewers
-# will run more specific build steps per-task if needed.
-RUN if npm run build --if-present; then echo "build ok"; else echo "no root build"; fi
+RUN cd auction && npm run build
 
-CMD ["/bin/sh", "-c", "echo 'Repository image built' && sleep 3600"]
+CMD ["/bin/sh", "-c", "echo 'Auction repository image built successfully'"]

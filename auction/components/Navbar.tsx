@@ -22,6 +22,12 @@ export default function Navbar({ onLogout }: { onLogout?: () => void }) {
             <Link href="/profile" className="hover:text-gray-300">
               Profile
             </Link>
+              <Link href="/auctions" className="hover:text-gray-300">
+                Auctions
+              </Link>
+              <Link href="/auctions/insights" className="hover:text-gray-300">
+                Insights
+              </Link>
             <Link href="/artist/dashboard" className="hover:text-gray-300">
               Dashboard
             </Link>
@@ -62,6 +68,12 @@ export default function Navbar({ onLogout }: { onLogout?: () => void }) {
           <Link href="/profile" className="hover:text-gray-300">
               Profile
             </Link>
+          <Link href="/auctions" className="block hover:text-gray-300">
+            Auctions
+          </Link>
+          <Link href="/auctions/insights" className="block hover:text-gray-300">
+            Insights
+          </Link>
           <Link href="/artist/dashboard" className="block hover:text-gray-300">
             Dashboard
           </Link>

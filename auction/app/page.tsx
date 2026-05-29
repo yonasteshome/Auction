@@ -65,6 +65,12 @@ export default function LandingPage() {
               Get live updates as auctions progress.
             </p>
           </div>
+          <div className="bg-white shadow-md rounded-xl p-6 text-center">
+            <h4 className="font-semibold text-lg mb-2">🔎 Smart Search</h4>
+            <p className="text-gray-600 text-sm">
+              Filter auctions by status, seller, title, and closing order.
+            </p>
+          </div>
         </div>
       </section>
 

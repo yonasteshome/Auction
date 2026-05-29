@@ -1,6 +1,9 @@
 node_modules
 dist
 .next
+auction/node_modules
+auction/.next
+backend/node_modules
 npm-debug.log
 .env
 *.tgz
