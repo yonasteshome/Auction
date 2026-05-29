@@ -1,21 +1,30 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "ui": "stream",
+  "$schema": "https://turborepo.dev/schema.json",
   "tasks": {
     "build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "public/dist/**","storybook-static/**"],
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**"]
+      "env": ["NEXT_PUBLIC_API_HOST"]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
+    "lint": {
+      "dependsOn": ["^build"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "start": {
+    "api#dev": {
+      "dependsOn": ["@repo/logger#build"],
       "cache": false,
       "persistent": true
     },
-    "lint": {
-      "outputs": []
+    "clean": {
+      "cache": false
     }
   }
 }

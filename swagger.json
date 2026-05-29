@@ -1,0 +1,2460 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SpendSense API",
+    "description": "SpendSense Ethiopia — Cost of Living, Budget & Smart Shopping API",
+    "version": "v1"
+  },
+  "host": "localhost:8000",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Paste ONE access token only. Format: Bearer eyJ... (single JWT, three parts). Do not paste the whole JSON from login, multiple tokens, or quotes. Copy only the string value of the \"access\" field from POST /api/auth/token/."
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/admin/audit/": {
+      "get": {
+        "operationId": "admin_audit_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "parameters": []
+    },
+    "/admin/ml/retrain/": {
+      "post": {
+        "operationId": "admin_ml_retrain_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "parameters": []
+    },
+    "/admin/ml/status/": {
+      "get": {
+        "operationId": "admin_ml_status_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "parameters": []
+    },
+    "/admin/settings/": {
+      "get": {
+        "operationId": "admin_settings_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "patch": {
+        "operationId": "admin_settings_partial_update",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "parameters": []
+    },
+    "/auth/token/": {
+      "post": {
+        "operationId": "auth_token_create",
+        "summary": "Obtain JWT access & refresh tokens",
+        "description": "JWT token view that accepts 'email' (or 'username') and 'password'.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "required": [
+                "email",
+                "password"
+              ],
+              "type": "object",
+              "properties": {
+                "email": {
+                  "description": "User email (mapped to username for JWT).",
+                  "type": "string",
+                  "format": "email"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token pair (access, refresh)"
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/auth/token/refresh/": {
+      "post": {
+        "operationId": "auth_token_refresh_create",
+        "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      },
+      "parameters": []
+    },
+    "/ecommerce/admin/vendors/": {
+      "get": {
+        "operationId": "ecommerce_admin_vendors_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VendorPublic"
+              }
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": []
+    },
+    "/ecommerce/admin/vendors/{id}/reject/": {
+      "post": {
+        "operationId": "ecommerce_admin_vendors_reject_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/admin/vendors/{id}/verify/": {
+      "post": {
+        "operationId": "ecommerce_admin_vendors_verify_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/listings/{id}/": {
+      "patch": {
+        "operationId": "ecommerce_listings_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VendorPrice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VendorPrice"
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/purchases/": {
+      "get": {
+        "operationId": "ecommerce_purchases_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "post": {
+        "operationId": "ecommerce_purchases_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PurchaseCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PurchaseCreate"
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": []
+    },
+    "/ecommerce/purchases/{id}/": {
+      "get": {
+        "operationId": "ecommerce_purchases_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/purchases/{id}/status/": {
+      "patch": {
+        "operationId": "ecommerce_purchases_status_partial_update",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/recommendations/": {
+      "get": {
+        "operationId": "ecommerce_recommendations_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": []
+    },
+    "/ecommerce/vendors/": {
+      "post": {
+        "operationId": "ecommerce_vendors_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VendorRegister"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VendorRegister"
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": []
+    },
+    "/ecommerce/vendors/{id}/": {
+      "get": {
+        "operationId": "ecommerce_vendors_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VendorPublic"
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this vendor.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/ecommerce/vendors/{vendor_id}/listings/": {
+      "get": {
+        "operationId": "ecommerce_vendors_listings_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VendorPrice"
+              }
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "post": {
+        "operationId": "ecommerce_vendors_listings_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VendorPrice"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/VendorPrice"
+            }
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "vendor_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/vendors/{vendor_id}/reviews/": {
+      "get": {
+        "operationId": "ecommerce_vendors_reviews_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "post": {
+        "operationId": "ecommerce_vendors_reviews_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "vendor_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/ecommerce/webhooks/payment/": {
+      "post": {
+        "operationId": "ecommerce_webhooks_payment_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ecommerce"
+        ]
+      },
+      "parameters": []
+    },
+    "/finance/budgets/": {
+      "get": {
+        "operationId": "finance_budgets_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Budget"
+              }
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "post": {
+        "operationId": "finance_budgets_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": []
+    },
+    "/finance/budgets/suggestions/": {
+      "get": {
+        "operationId": "finance_budgets_suggestions_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": []
+    },
+    "/finance/budgets/{id}/": {
+      "get": {
+        "operationId": "finance_budgets_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "put": {
+        "operationId": "finance_budgets_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "patch": {
+        "operationId": "finance_budgets_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "delete": {
+        "operationId": "finance_budgets_delete",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/finance/budgets/{id}/summary/": {
+      "get": {
+        "operationId": "finance_budgets_summary_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/finance/expenses/": {
+      "get": {
+        "operationId": "finance_expenses_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Expense"
+              }
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "post": {
+        "operationId": "finance_expenses_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": []
+    },
+    "/finance/expenses/{id}/": {
+      "get": {
+        "operationId": "finance_expenses_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "put": {
+        "operationId": "finance_expenses_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "patch": {
+        "operationId": "finance_expenses_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Expense"
+            }
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "delete": {
+        "operationId": "finance_expenses_delete",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/finance/export/": {
+      "get": {
+        "operationId": "finance_export_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "finance"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/admin/submissions/": {
+      "get": {
+        "operationId": "market_admin_submissions_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AdminSubmissionList"
+              }
+            }
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/admin/submissions/{id}/": {
+      "get": {
+        "operationId": "market_admin_submissions_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AdminSubmissionList"
+            }
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "patch": {
+        "operationId": "market_admin_submissions_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminSubmissionUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AdminSubmissionUpdate"
+            }
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this price submission.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
+    "/market/admin/submissions/{id}/approve/": {
+      "post": {
+        "operationId": "market_admin_submissions_approve_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/market/admin/submissions/{id}/reject/": {
+      "post": {
+        "operationId": "market_admin_submissions_reject_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/market/forecasts/": {
+      "get": {
+        "operationId": "market_forecasts_list",
+        "description": "Reads `Forecast` rows; if none, returns stub from last approved average.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/inflation/": {
+      "get": {
+        "operationId": "market_inflation_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/items/": {
+      "get": {
+        "operationId": "market_items_list",
+        "description": "GET /api/market/items/ — list tracked items (seeded via seed_items).",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Item"
+              }
+            }
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/national-prices/": {
+      "get": {
+        "operationId": "market_national-prices_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/prices/averages/": {
+      "get": {
+        "operationId": "market_prices_averages_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "from_date",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "to_date",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of average price rows"
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/prices/submit/": {
+      "post": {
+        "operationId": "market_prices_submit_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PriceSubmission"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PriceSubmission"
+            }
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/market/trends/": {
+      "get": {
+        "operationId": "market_trends_list",
+        "description": "Daily average from approved submissions (time series for charts).",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "from_date",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "to_date",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Series of {date, average_price, count}"
+          }
+        },
+        "tags": [
+          "market"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/admin/users/": {
+      "get": {
+        "operationId": "users_admin_users_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AdminUserBrief"
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/admin/users/{id}/": {
+      "get": {
+        "operationId": "users_admin_users_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AdminUserBrief"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "put": {
+        "operationId": "users_admin_users_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminUserUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AdminUserUpdate"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "patch": {
+        "operationId": "users_admin_users_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminUserUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AdminUserUpdate"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this user.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/users/me/": {
+      "get": {
+        "operationId": "users_me_read",
+        "description": "GET/PATCH /api/users/me/ — browsable API uses UserProfileSerializer.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "put": {
+        "operationId": "users_me_update",
+        "description": "GET/PATCH /api/users/me/ — browsable API uses UserProfileSerializer.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "patch": {
+        "operationId": "users_me_partial_update",
+        "description": "GET/PATCH /api/users/me/ — browsable API uses UserProfileSerializer.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/me/notifications/": {
+      "get": {
+        "operationId": "users_me_notifications_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Notification"
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/me/notifications/{id}/": {
+      "get": {
+        "operationId": "users_me_notifications_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "put": {
+        "operationId": "users_me_notifications_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "patch": {
+        "operationId": "users_me_notifications_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/users/password/reset/confirm/": {
+      "post": {
+        "operationId": "users_password_reset_confirm_create",
+        "summary": "Confirm password reset with uid + token",
+        "description": "POST /api/users/password/reset/confirm/ — complete reset from Week 3 reset-password page.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PasswordResetConfirm"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password updated"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/password/reset/request/": {
+      "post": {
+        "operationId": "users_password_reset_request_create",
+        "summary": "Request password reset email",
+        "description": "POST /api/users/password/reset/request/ — email link for Week 3 forgot-password flow.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PasswordResetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Generic success (avoids email enumeration)"
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/register/": {
+      "post": {
+        "operationId": "users_register_create",
+        "description": "POST /api/users/register/ — browsable API + schema show RegisterSerializer body.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "definitions": {
+    "TokenRefresh": {
+      "required": [
+        "refresh"
+      ],
+      "type": "object",
+      "properties": {
+        "refresh": {
+          "title": "Refresh",
+          "type": "string",
+          "minLength": 1
+        },
+        "access": {
+          "title": "Access",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        }
+      }
+    },
+    "VendorPublic": {
+      "required": [
+        "shop_name",
+        "city"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "shop_name": {
+          "title": "Shop name",
+          "type": "string",
+          "maxLength": 150,
+          "minLength": 1
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "address": {
+          "title": "Address",
+          "type": "string",
+          "maxLength": 255
+        },
+        "contact_phone": {
+          "title": "Contact phone",
+          "type": "string",
+          "maxLength": 30
+        },
+        "latitude": {
+          "title": "Latitude",
+          "type": "string",
+          "format": "decimal",
+          "x-nullable": true
+        },
+        "longitude": {
+          "title": "Longitude",
+          "type": "string",
+          "format": "decimal",
+          "x-nullable": true
+        },
+        "is_verified": {
+          "title": "Is verified",
+          "type": "boolean"
+        },
+        "rating_avg": {
+          "title": "Rating avg",
+          "type": "string",
+          "format": "decimal"
+        },
+        "rating_count": {
+          "title": "Rating count",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": 0
+        },
+        "joined_at": {
+          "title": "Joined at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "VendorPrice": {
+      "required": [
+        "item",
+        "price"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "item": {
+          "title": "Item",
+          "type": "integer"
+        },
+        "item_name": {
+          "title": "Item name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "price": {
+          "title": "Price",
+          "type": "string",
+          "format": "decimal"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        },
+        "is_verified": {
+          "title": "Is verified",
+          "type": "boolean"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "vendor": {
+          "title": "Vendor",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "vendor_price": {
+          "title": "Vendor price",
+          "type": "integer",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "readOnly": true
+        },
+        "amount": {
+          "title": "Amount",
+          "type": "string",
+          "format": "decimal",
+          "readOnly": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "paid",
+            "shipped",
+            "delivered",
+            "failed",
+            "cancelled"
+          ],
+          "readOnly": true
+        },
+        "reference": {
+          "title": "Reference",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "payment_method": {
+          "title": "Payment method",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "payment_reference": {
+          "title": "Payment reference",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "payment_url": {
+          "title": "Payment url",
+          "type": "string",
+          "format": "uri",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "paid_at": {
+          "title": "Paid at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "PurchaseCreate": {
+      "required": [
+        "vendor_id",
+        "listing_id"
+      ],
+      "type": "object",
+      "properties": {
+        "vendor_id": {
+          "title": "Vendor id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "listing_id": {
+          "title": "Listing id",
+          "description": "VendorPrice id",
+          "type": "integer"
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "default": 1,
+          "minimum": 1
+        },
+        "delivery_address": {
+          "title": "Delivery address",
+          "type": "string",
+          "default": ""
+        },
+        "payment_method": {
+          "title": "Payment method",
+          "type": "string",
+          "enum": [
+            "chapa",
+            "telebirr",
+            "cash"
+          ],
+          "default": "chapa"
+        }
+      }
+    },
+    "VendorRegister": {
+      "required": [
+        "shop_name",
+        "city"
+      ],
+      "type": "object",
+      "properties": {
+        "shop_name": {
+          "title": "Shop name",
+          "type": "string",
+          "maxLength": 150,
+          "minLength": 1
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "address": {
+          "title": "Address",
+          "type": "string",
+          "maxLength": 255
+        },
+        "contact_phone": {
+          "title": "Contact phone",
+          "type": "string",
+          "maxLength": 30
+        },
+        "latitude": {
+          "title": "Latitude",
+          "type": "string",
+          "format": "decimal",
+          "x-nullable": true
+        },
+        "longitude": {
+          "title": "Longitude",
+          "type": "string",
+          "format": "decimal",
+          "x-nullable": true
+        }
+      }
+    },
+    "BudgetCategory": {
+      "required": [
+        "category_name",
+        "limit_amount"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "category_name": {
+          "title": "Category name",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "limit_amount": {
+          "title": "Limit amount",
+          "type": "string",
+          "format": "decimal"
+        }
+      }
+    },
+    "Budget": {
+      "required": [
+        "month",
+        "year",
+        "total_limit",
+        "categories"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "month": {
+          "title": "Month",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "year": {
+          "title": "Year",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "total_limit": {
+          "title": "Total limit",
+          "type": "string",
+          "format": "decimal"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BudgetCategory"
+          }
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "Expense": {
+      "required": [
+        "category",
+        "amount",
+        "date"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "category": {
+          "title": "Category",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "amount": {
+          "title": "Amount",
+          "type": "string",
+          "format": "decimal"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string",
+          "format": "date"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "item": {
+          "title": "Item",
+          "type": "integer",
+          "x-nullable": true
+        },
+        "vendor": {
+          "title": "Vendor",
+          "type": "string",
+          "format": "uuid",
+          "x-nullable": true
+        },
+        "payment_method": {
+          "title": "Payment method",
+          "type": "string",
+          "maxLength": 50,
+          "x-nullable": true
+        }
+      }
+    },
+    "AdminSubmissionList": {
+      "required": [
+        "item",
+        "price_value",
+        "market_location",
+        "city",
+        "date_observed"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "item": {
+          "title": "Item",
+          "type": "integer"
+        },
+        "item_name": {
+          "title": "Item name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "price_value": {
+          "title": "Price value",
+          "type": "string",
+          "format": "decimal"
+        },
+        "market_location": {
+          "title": "Market location",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "date_observed": {
+          "title": "Date observed",
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected"
+          ]
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "submitter_email": {
+          "title": "Submitter email",
+          "type": "string",
+          "format": "email",
+          "readOnly": true,
+          "minLength": 1
+        }
+      }
+    },
+    "AdminSubmissionUpdate": {
+      "required": [
+        "price_value",
+        "market_location",
+        "city",
+        "date_observed"
+      ],
+      "type": "object",
+      "properties": {
+        "item": {
+          "title": "Item",
+          "type": "integer"
+        },
+        "price_value": {
+          "title": "Price value",
+          "type": "string",
+          "format": "decimal"
+        },
+        "market_location": {
+          "title": "Market location",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "date_observed": {
+          "title": "Date observed",
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected"
+          ]
+        }
+      }
+    },
+    "Item": {
+      "required": [
+        "name",
+        "category",
+        "unit"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "category": {
+          "title": "Category",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 1
+        }
+      }
+    },
+    "PriceSubmission": {
+      "required": [
+        "item_id",
+        "price_value",
+        "market_location",
+        "city",
+        "date_observed"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "item_id": {
+          "title": "Item id",
+          "type": "integer"
+        },
+        "price_value": {
+          "title": "Price value",
+          "type": "string",
+          "format": "decimal"
+        },
+        "market_location": {
+          "title": "Market location",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "date_observed": {
+          "title": "Date observed",
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "rejected"
+          ],
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "outlier_warning": {
+          "title": "Outlier warning",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "AdminUserBrief": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1,
+          "x-nullable": true
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "user",
+            "vendor",
+            "admin"
+          ],
+          "readOnly": true
+        },
+        "is_active": {
+          "title": "Is active",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "AdminUserUpdate": {
+      "type": "object",
+      "properties": {
+        "is_active": {
+          "title": "Is active",
+          "type": "boolean"
+        }
+      }
+    },
+    "UserProfile": {
+      "required": [
+        "full_name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "user",
+            "vendor",
+            "admin"
+          ],
+          "readOnly": true
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "household_size": {
+          "title": "Household size",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": 0,
+          "x-nullable": true
+        },
+        "income_bracket": {
+          "title": "Income bracket",
+          "type": "string",
+          "maxLength": 50,
+          "x-nullable": true
+        },
+        "onboarding_completed": {
+          "title": "Onboarding completed",
+          "type": "boolean"
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "Notification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "message": {
+          "title": "Message",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "is_read": {
+          "title": "Is read",
+          "type": "boolean"
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "PasswordResetConfirm": {
+      "required": [
+        "uid",
+        "token",
+        "new_password"
+      ],
+      "type": "object",
+      "properties": {
+        "uid": {
+          "title": "Uid",
+          "type": "string",
+          "minLength": 1
+        },
+        "token": {
+          "title": "Token",
+          "type": "string",
+          "minLength": 1
+        },
+        "new_password": {
+          "title": "New password",
+          "type": "string",
+          "minLength": 8
+        }
+      }
+    },
+    "PasswordResetRequest": {
+      "required": [
+        "email"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "minLength": 1
+        }
+      }
+    },
+    "Register": {
+      "required": [
+        "full_name",
+        "email",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "maxLength": 120,
+          "minLength": 1
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "password": {
+          "title": "Password",
+          "type": "string",
+          "minLength": 8
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "user",
+            "vendor",
+            "admin"
+          ]
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "household_size": {
+          "title": "Household size",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": 0,
+          "x-nullable": true
+        },
+        "income_bracket": {
+          "title": "Income bracket",
+          "type": "string",
+          "maxLength": 50,
+          "x-nullable": true
+        },
+        "notification_preferences": {
+          "title": "Notification preferences",
+          "type": "object"
+        },
+        "onboarding_completed": {
+          "title": "Onboarding completed",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

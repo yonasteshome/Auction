@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@import "@repo/tailwind-config";
+
+@source "../../../apps/**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+/* --- Fonts --- */
+@font-face {
+  font-family: "Geist Variable";
+  src: url("https://assets.vercel.com/raw/upload/v1664439469/fonts/GeistVF.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable";
+  src: url("https://assets.vercel.com/raw/upload/v1664439469/fonts/GeistMonoVF.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* --- Variables & Theme --- */
+:root {
+  --background: oklch(0.9737 0.0026 286.3506);
+  --foreground: oklch(0.1869 0.0107 268.1117);
+  --card: oklch(1.0000 0 0);
+  --card-foreground: oklch(0.1869 0.0107 268.1117);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0.1869 0.0107 268.1117);
+  --primary: oklch(0.5282 0.2286 262.2916);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.94 0.005 250); /* Darkened slightly */
+  --muted: oklch(0.92 0.005 250);     /* Darkened for deeper input feel */
+  --muted-foreground: oklch(0.5399 0.0443 262.7196);
+  --accent: oklch(0.94 0.005 250);
+  --accent-foreground: oklch(0.5282 0.2286 262.2916);
+  --destructive: oklch(0.5858 0.2220 17.5846);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.88 0.0140 261.0000);
+  --input: oklch(0.90 0.01 252.0000); /* Darkened from 0.915 for contrast */
+  --ring: oklch(0.5282 0.2286 262.2916);
+  
+  --sidebar: oklch(1.0000 0 0);
+  --sidebar-foreground: oklch(0.1869 0.0107 268.1117);
+  --sidebar-primary: oklch(0.5282 0.2286 262.2916);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.9602 0.0034 247.8587);
+  --sidebar-accent-foreground: oklch(0.5282 0.2286 262.2916);
+  --sidebar-border: oklch(0.9026 0.0105 261.7879);
+  --sidebar-ring: oklch(0.5282 0.2286 262.2916);
+
+  --font-sans: "Geist Variable", "Inter", -apple-system, sans-serif;
+  --font-mono: "Geist Mono Variable", "JetBrains Mono", monospace;
+  
+  --radius: 0.75rem;
+  --shadow-sm: 0px 4px 12px 0px hsl(0 0% 0% / 0.04);
+  --shadow-md: 0px 8px 24px -4px hsl(0 0% 0% / 0.06);
+  --tracking-normal: -0.011em;
+}
+
+.dark {
+  --background: oklch(0.1869 0.0107 268.1117);
+  --foreground: oklch(0.9737 0.0026 286.3506);
+  --card: oklch(0.2393 0.0142 266.9746);
+  --card-foreground: oklch(0.9737 0.0026 286.3506);
+  --popover: oklch(0.2393 0.0142 266.9746);
+  --popover-foreground: oklch(0.9737 0.0026 286.3506);
+  --secondary: oklch(0.24 0.015 266); /* Darker surface for inputs */
+  --muted: oklch(0.22 0.015 266);     /* More recessed dark mode input */
+  --muted-foreground: oklch(0.7357 0.0239 260.7112);
+  --accent: oklch(0.2889 0.0174 266.3516);
+  --accent-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.2500 0.0160 266.0000);
+  --input: oklch(0.20 0.015 266.0000); /* Darker input background in dark mode */
+  
+  --sidebar: oklch(0.2393 0.0142 266.9746);
+  --sidebar-foreground: oklch(0.9737 0.0026 286.3506);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  
+  --tracking-tight: -0.025em;
+  --tracking-tighter: -0.05em;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    letter-spacing: var(--tracking-normal);
+  }
+
+  /* Glassmorphism Utility */
+  .glass {
+    @apply bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-sm;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40 transition-colors;
+}

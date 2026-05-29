@@ -1,0 +1,426 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model auth_group {
+  id                     Int                      @id @default(autoincrement())
+  name                   String                   @unique @db.VarChar(150)
+  auth_group_permissions auth_group_permissions[]
+  users_user_groups      users_user_groups[]
+
+  @@index([name], map: "auth_group_name_a6ea08ec_like")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model auth_group_permissions {
+  id              BigInt          @id @default(autoincrement())
+  group_id        Int
+  permission_id   Int
+  auth_permission auth_permission @relation(fields: [permission_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "auth_group_permissio_permission_id_84c5c92e_fk_auth_perm")
+  auth_group      auth_group      @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "auth_group_permissions_group_id_b120cbf9_fk_auth_group_id")
+
+  @@unique([group_id, permission_id], map: "auth_group_permissions_group_id_permission_id_0cd325b0_uniq")
+  @@index([group_id], map: "auth_group_permissions_group_id_b120cbf9")
+  @@index([permission_id], map: "auth_group_permissions_permission_id_84c5c92e")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model auth_permission {
+  id                          Int                           @id @default(autoincrement())
+  name                        String                        @db.VarChar(255)
+  content_type_id             Int
+  codename                    String                        @db.VarChar(100)
+  auth_group_permissions      auth_group_permissions[]
+  django_content_type         django_content_type           @relation(fields: [content_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "auth_permission_content_type_id_2f476e4b_fk_django_co")
+  users_user_user_permissions users_user_user_permissions[]
+
+  @@unique([content_type_id, codename], map: "auth_permission_content_type_id_codename_01ab375a_uniq")
+  @@index([content_type_id], map: "auth_permission_content_type_id_2f476e4b")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model django_admin_log {
+  id                  Int                  @id @default(autoincrement())
+  action_time         DateTime             @db.Timestamptz(6)
+  object_id           String?
+  object_repr         String               @db.VarChar(200)
+  action_flag         Int                  @db.SmallInt
+  change_message      String
+  content_type_id     Int?
+  user_id             String               @db.Uuid
+  django_content_type django_content_type? @relation(fields: [content_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "django_admin_log_content_type_id_c4bce8eb_fk_django_co")
+  users_user          users_user           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "django_admin_log_user_id_c564eba6_fk_users_user_id")
+
+  @@index([content_type_id], map: "django_admin_log_content_type_id_c4bce8eb")
+  @@index([user_id], map: "django_admin_log_user_id_c564eba6")
+}
+
+model django_content_type {
+  id               Int                @id @default(autoincrement())
+  app_label        String             @db.VarChar(100)
+  model            String             @db.VarChar(100)
+  auth_permission  auth_permission[]
+  django_admin_log django_admin_log[]
+
+  @@unique([app_label, model], map: "django_content_type_app_label_model_76bd3d3b_uniq")
+}
+
+model django_migrations {
+  id      BigInt   @id @default(autoincrement())
+  app     String   @db.VarChar(255)
+  name    String   @db.VarChar(255)
+  applied DateTime @db.Timestamptz(6)
+}
+
+model django_session {
+  session_key  String   @id @db.VarChar(40)
+  session_data String
+  expire_date  DateTime @db.Timestamptz(6)
+
+  @@index([expire_date], map: "django_session_expire_date_a5c62663")
+  @@index([session_key], map: "django_session_session_key_c0390e0f_like")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model ecommerce_transaction {
+  id           String       @id @db.Uuid
+  amount       Decimal      @db.Decimal(12, 2)
+  currency     String       @db.VarChar(10)
+  status       String       @db.VarChar(10)
+  reference    String       @unique @db.VarChar(120)
+  created_at   DateTime     @db.Timestamptz(6)
+  user_id      String       @db.Uuid
+  vendor_id    String       @db.Uuid
+  users_user   users_user   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ecommerce_transaction_user_id_37835329_fk_users_user_id")
+  users_vendor users_vendor @relation(fields: [vendor_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ecommerce_transaction_vendor_id_e751e0b6_fk_users_vendor_id")
+
+  @@index([reference], map: "ecommerce_transaction_reference_4be2661a_like")
+  @@index([user_id], map: "ecommerce_transaction_user_id_37835329")
+  @@index([vendor_id], map: "ecommerce_transaction_vendor_id_e751e0b6")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model finance_budget {
+  id                     BigInt                   @id @default(autoincrement())
+  month                  Int
+  year                   Int
+  total_limit            Decimal                  @db.Decimal(12, 2)
+  created_at             DateTime                 @db.Timestamptz(6)
+  user_id                String                   @db.Uuid
+  users_user             users_user               @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "finance_budget_user_id_5b42ea65_fk_users_user_id")
+  finance_budgetcategory finance_budgetcategory[]
+
+  @@index([user_id], map: "finance_budget_user_id_5b42ea65")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model finance_budgetcategory {
+  id             BigInt         @id @default(autoincrement())
+  category_name  String         @db.VarChar(120)
+  limit_amount   Decimal        @db.Decimal(12, 2)
+  budget_id      BigInt
+  finance_budget finance_budget @relation(fields: [budget_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "finance_budgetcategory_budget_id_dbbf6bcc_fk_finance_budget_id")
+
+  @@index([budget_id], map: "finance_budgetcategory_budget_id_dbbf6bcc")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model finance_expense {
+  id             BigInt        @id @default(autoincrement())
+  category       String        @db.VarChar(120)
+  amount         Decimal       @db.Decimal(12, 2)
+  payment_method String?       @db.VarChar(50)
+  date           DateTime      @db.Date
+  note           String?
+  item_id        BigInt?
+  user_id        String        @db.Uuid
+  vendor_id      String?       @db.Uuid
+  receipt        String?       @db.VarChar(100)
+  market_item    market_item?  @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "finance_expense_item_id_710e4dce_fk_market_item_id")
+  users_user     users_user    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "finance_expense_user_id_077c4557_fk_users_user_id")
+  users_vendor   users_vendor? @relation(fields: [vendor_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "finance_expense_vendor_id_bef4c853_fk_users_vendor_id")
+
+  @@index([item_id], map: "finance_expense_item_id_710e4dce")
+  @@index([user_id], map: "finance_expense_user_id_077c4557")
+  @@index([vendor_id], map: "finance_expense_vendor_id_bef4c853")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model market_forecast {
+  id              BigInt      @id @default(autoincrement())
+  forecast_date   DateTime    @db.Date
+  predicted_price Decimal     @db.Decimal(12, 2)
+  model_used      String      @db.VarChar(50)
+  confidence_low  Decimal?    @db.Decimal(12, 2)
+  confidence_high Decimal?    @db.Decimal(12, 2)
+  generated_at    DateTime    @db.Timestamptz(6)
+  item_id         BigInt
+  sarima_order    String?     @db.VarChar(50)
+  seasonal_order  String?     @db.VarChar(50)
+  mse             Float?
+  market_item     market_item @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_forecast_item_id_cac28c88_fk_market_item_id")
+
+  @@index([item_id], map: "market_forecast_item_id_cac28c88")
+}
+
+model market_item {
+  id                     BigInt                   @id @default(autoincrement())
+  name                   String                   @unique @db.VarChar(120)
+  category               String                   @db.VarChar(100)
+  unit                   String                   @db.VarChar(30)
+  description            String                   @default("")
+  image                  String?                  @db.VarChar(100)
+  finance_expense        finance_expense[]
+  market_forecast        market_forecast[]
+  market_nationalprice   market_nationalprice[]
+  market_pricesubmission market_pricesubmission[]
+  market_vendorprice     market_vendorprice[]
+
+  @@index([name], map: "market_item_name_733d40ed_like")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model market_nationalprice {
+  id          BigInt      @id @default(autoincrement())
+  price       Decimal     @db.Decimal(10, 2)
+  source      String      @db.VarChar(20)
+  city        String      @db.VarChar(120)
+  date        DateTime    @db.Date
+  item_id     BigInt
+  market_item market_item @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_nationalprice_item_id_8dae6c55_fk_market_item_id")
+
+  @@index([item_id], map: "market_nationalprice_item_id_8dae6c55")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model market_pricesubmission {
+  id                 BigInt      @id @default(autoincrement())
+  price_value        Decimal     @db.Decimal(10, 2)
+  market_location    String      @db.VarChar(120)
+  city               String      @db.VarChar(120)
+  date_observed      DateTime    @db.Date
+  status             String      @db.VarChar(20)
+  created_at         DateTime    @db.Timestamptz(6)
+  item_id            BigInt
+  user_id            String      @db.Uuid
+  image              String?     @db.VarChar(100)
+  unit               String      @default("") @db.VarChar(30)
+  vendor_name        String      @default("") @db.VarChar(120)
+  time_observed      String      @default("") @db.VarChar(20)
+  quality_grade      String      @default("") @db.VarChar(60)
+  quantity_available Decimal?    @db.Decimal(10, 2)
+  notes              String      @default("")
+  rejection_reason   String      @default("")
+  outlier_flag       Boolean     @default(false)
+  market_item        market_item @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_pricesubmission_item_id_4049dcf2_fk_market_item_id")
+  users_user         users_user  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_pricesubmission_user_id_9826e558_fk_users_user_id")
+
+  @@index([item_id], map: "market_pricesubmission_item_id_4049dcf2")
+  @@index([user_id], map: "market_pricesubmission_user_id_9826e558")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model market_vendorprice {
+  id                      BigInt                    @id @default(autoincrement())
+  price                   Decimal                   @db.Decimal(10, 2)
+  date                    DateTime                  @db.Date
+  is_verified             Boolean
+  item_id                 BigInt
+  vendor_id               String                    @db.Uuid
+  image                   String?                   @db.VarChar(100)
+  stock_count             Int
+  market_item             market_item               @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_vendorprice_item_id_22265e99_fk_market_item_id")
+  users_vendor            users_vendor              @relation(fields: [vendor_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_vendorprice_vendor_id_c8f441f1_fk_users_vendor_id")
+  market_vendorpriceimage market_vendorpriceimage[]
+
+  @@index([item_id], map: "market_vendorprice_item_id_22265e99")
+  @@index([vendor_id], map: "market_vendorprice_vendor_id_c8f441f1")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model users_notification {
+  id         BigInt     @id @default(autoincrement())
+  type       String     @db.VarChar(50)
+  message    String
+  is_read    Boolean
+  created_at DateTime   @db.Timestamptz(6)
+  user_id    String     @db.Uuid
+  users_user users_user @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_notification_user_id_fed360c8_fk_users_user_id")
+
+  @@index([user_id], map: "users_notification_user_id_fed360c8")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users_user {
+  password                    String                        @db.VarChar(128)
+  last_login                  DateTime?                     @db.Timestamptz(6)
+  is_superuser                Boolean
+  id                          String                        @id @db.Uuid
+  full_name                   String                        @db.VarChar(120)
+  email                       String                        @unique @db.VarChar(254)
+  phone                       String?                       @unique @db.VarChar(20)
+  role                        String                        @db.VarChar(10)
+  city                        String?                       @db.VarChar(100)
+  household_size              Int?
+  income_bracket              String?                       @db.VarChar(50)
+  is_staff                    Boolean
+  is_active                   Boolean
+  created_at                  DateTime                      @db.Timestamptz(6)
+  notification_preferences    Json
+  onboarding_completed        Boolean
+  avatar                      String?                       @db.VarChar(100)
+  django_admin_log            django_admin_log[]
+  ecommerce_transaction       ecommerce_transaction[]
+  finance_budget              finance_budget[]
+  finance_expense             finance_expense[]
+  market_pricesubmission      market_pricesubmission[]
+  users_auditlog              users_auditlog[]
+  users_notification          users_notification[]
+  users_systemsetting         users_systemsetting[]
+  users_user_groups           users_user_groups[]
+  users_user_user_permissions users_user_user_permissions[]
+  users_vendor                users_vendor[]
+
+  @@index([email], map: "users_user_email_243f6e77_like")
+  @@index([phone], map: "users_user_phone_fe37f55c_like")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model users_user_groups {
+  id         BigInt     @id @default(autoincrement())
+  user_id    String     @db.Uuid
+  group_id   Int
+  auth_group auth_group @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_user_groups_group_id_9afc8d0e_fk_auth_group_id")
+  users_user users_user @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_user_groups_user_id_5f6f5a90_fk_users_user_id")
+
+  @@unique([user_id, group_id], map: "users_user_groups_user_id_group_id_b88eab82_uniq")
+  @@index([group_id], map: "users_user_groups_group_id_9afc8d0e")
+  @@index([user_id], map: "users_user_groups_user_id_5f6f5a90")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model users_user_user_permissions {
+  id              BigInt          @id @default(autoincrement())
+  user_id         String          @db.Uuid
+  permission_id   Int
+  auth_permission auth_permission @relation(fields: [permission_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_user_user_perm_permission_id_0b93982e_fk_auth_perm")
+  users_user      users_user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_user_user_permissions_user_id_20aca447_fk_users_user_id")
+
+  @@unique([user_id, permission_id], map: "users_user_user_permissions_user_id_permission_id_43338c45_uniq")
+  @@index([permission_id], map: "users_user_user_permissions_permission_id_0b93982e")
+  @@index([user_id], map: "users_user_user_permissions_user_id_20aca447")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model users_vendor {
+  id                    String                  @id @db.Uuid
+  shop_name             String                  @db.VarChar(150)
+  city                  String                  @db.VarChar(120)
+  latitude              Decimal?                @db.Decimal(10, 6)
+  longitude             Decimal?                @db.Decimal(10, 6)
+  joined_at             DateTime                @db.Timestamptz(6)
+  owner_id              String                  @db.Uuid
+  address               String                  @db.VarChar(255)
+  contact_phone         String                  @db.VarChar(30)
+  is_verified           Boolean
+  rating_avg            Decimal                 @db.Decimal(3, 2)
+  rating_count          Int
+  image                 String?                 @db.VarChar(100)
+  theme_image           String?                 @db.VarChar(100)
+  verification_status   String                  @db.VarChar(20)
+  business_license      String?                 @db.VarChar(100)
+  tin_number            String                  @db.VarChar(50)
+  ecommerce_product     ecommerce_product[]
+  ecommerce_transaction ecommerce_transaction[]
+  finance_expense       finance_expense[]
+  market_vendorprice    market_vendorprice[]
+  users_user            users_user              @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_vendor_owner_id_5f619c62_fk_users_user_id")
+
+  @@index([owner_id], map: "users_vendor_owner_id_5f619c62")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model users_auditlog {
+  id          BigInt      @id @default(autoincrement())
+  action      String      @db.VarChar(120)
+  resource    String      @db.VarChar(120)
+  resource_id String      @db.VarChar(120)
+  detail      Json
+  created_at  DateTime    @db.Timestamptz(6)
+  actor_id    String?     @db.Uuid
+  users_user  users_user? @relation(fields: [actor_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_auditlog_actor_id_c75b00f8_fk_users_user_id")
+
+  @@index([actor_id], map: "users_auditlog_actor_id_c75b00f8")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model users_systemsetting {
+  id            BigInt      @id @default(autoincrement())
+  key           String      @unique @db.VarChar(120)
+  value         Json
+  updated_at    DateTime    @db.Timestamptz(6)
+  updated_by_id String?     @db.Uuid
+  users_user    users_user? @relation(fields: [updated_by_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_systemsetting_updated_by_id_289e090c_fk_users_user_id")
+
+  @@index([key], map: "users_systemsetting_key_853d6952_like")
+  @@index([updated_by_id], map: "users_systemsetting_updated_by_id_289e090c")
+}
+
+model ecommerce_category {
+  id                BigInt              @id @default(autoincrement())
+  name              String              @unique @db.VarChar(120)
+  description       String
+  image             String?             @db.VarChar(100)
+  created_at        DateTime            @db.Timestamptz(6)
+  ecommerce_product ecommerce_product[]
+
+  @@index([name], map: "ecommerce_category_name_909c7257_like")
+}
+
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model ecommerce_product {
+  id                 BigInt             @id @default(autoincrement())
+  name               String             @db.VarChar(150)
+  description        String
+  price              Decimal            @db.Decimal(12, 2)
+  image              String?            @db.VarChar(100)
+  is_active          Boolean
+  created_at         DateTime           @db.Timestamptz(6)
+  updated_at         DateTime           @db.Timestamptz(6)
+  category_id        BigInt
+  vendor_id          String             @db.Uuid
+  ecommerce_category ecommerce_category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ecommerce_product_category_id_53003707_fk_ecommerce_category_id")
+  users_vendor       users_vendor       @relation(fields: [vendor_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ecommerce_product_vendor_id_c7b2110a_fk_users_vendor_id")
+
+  @@index([category_id], map: "ecommerce_product_category_id_53003707")
+  @@index([vendor_id], map: "ecommerce_product_vendor_id_c7b2110a")
+}
+
+model market_forecastrun {
+  id         BigInt   @id @default(autoincrement())
+  model_used String   @default("sarima") @db.VarChar(50)
+  status     String   @default("pending") @db.VarChar(20)
+  item_count Int      @default(0)
+  detail     Json     @default("{}")
+  error_log  String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model has constraints using non-default deferring rules and requires additional setup for migrations. Visit https://pris.ly/d/constraint-deferring for more info.
+model market_vendorpriceimage {
+  id                 BigInt             @id @default(autoincrement())
+  image              String             @db.VarChar(100)
+  position           Int
+  created_at         DateTime           @db.Timestamptz(6)
+  vendor_price_id    BigInt
+  market_vendorprice market_vendorprice @relation(fields: [vendor_price_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "market_vendorpriceim_vendor_price_id_cca34dcd_fk_market_ve")
+
+  @@index([vendor_price_id], map: "market_vendorpriceimage_vendor_price_id_cca34dcd")
+}

@@ -1,13 +1,1 @@
 node_modules
-dist
-.next
-auction/node_modules
-auction/.next
-backend/node_modules
-npm-debug.log
-.env
-*.tgz
-coverage
-tmp
-/.cache
-# Important: Do NOT exclude .git — the submission ZIP must include full git history
