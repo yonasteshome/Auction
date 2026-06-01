@@ -1,12 +1,22 @@
-FROM node:20
+ARG REPO_IMAGE=python:3.11.9-slim
+FROM ${REPO_IMAGE}
 
-# This per-task Dockerfile often uses the approved repo image as FROM.
-# Replace the FROM line with the exact approved repo image when authoring a real task.
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /workspace
 
-# Reset to the base commit will be handled by the harness; install deps for tests
-COPY package-lock.json package.json /workspace/
-RUN npm ci --no-audit --no-fund
+# Install minimal system deps; keep --no-install-recommends per policy
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies (requirements.txt uses exact pins)
+COPY apps/api/requirements.txt /workspace/apps/api/requirements.txt
+RUN pip install --no-cache-dir -r /workspace/apps/api/requirements.txt
 
 COPY . /workspace
+
+WORKDIR /workspace/apps/api

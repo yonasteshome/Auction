@@ -1,49 +1,53 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR=$(pwd)
-LOG_DIR=/logs/verifier
-mkdir -p "$LOG_DIR"
+LOGS_DIR="${LOGS_DIR:-/logs/verifier}"
+mkdir -p "$LOGS_DIR"
 
-python - <<'PY'
-import json,sys,subprocess,os
+cd /workspace
 
-cfg = json.load(open('tests/config.json'))
-test_patch = cfg.get('test_patch','')
-if test_patch:
-    # apply test patch
-    p = subprocess.Popen(['git','apply','-p0'], stdin=subprocess.PIPE)
-    p.communicate(input=test_patch.encode())
-    if p.returncode != 0:
-        print('git apply failed', file=sys.stderr)
-        sys.exit(2)
+# Apply test patch if test_patch is non-empty
+TEST_PATCH_FILE="/task/tests/config.json"
+if [ -f "$TEST_PATCH_FILE" ]; then
+    TEST_PATCH=$(python3 -c "import json,sys; d=json.load(open('$TEST_PATCH_FILE')); print(d.get('test_patch',''))")
+    if [ -n "$TEST_PATCH" ]; then
+        echo "$TEST_PATCH" | git apply --allow-empty - 2>/dev/null || true
+    fi
+fi
 
-# run the test runner, capture stdout
-with open('/tmp/runner.out','wb') as out:
-    rc = subprocess.call(['bash','tests/run_script.sh'], stdout=out, stderr=subprocess.STDOUT)
+# Run tests and capture output
+set +e
+bash /task/tests/run_script.sh 2>&1 | tee /tmp/test_output.txt
+set -e
 
-with open('/tmp/runner.out','r') as f:
-    runner_out = f.read()
+RAW=$(cat /tmp/test_output.txt)
 
-parser = subprocess.Popen(['python','tests/parser.py'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-parsed, _ = parser.communicate(input=runner_out.encode())
-try:
-    results = json.loads(parsed.decode())
-except Exception:
-    results = []
+# Parse results
+PARSED=$(echo "$RAW" | python3 /task/tests/parser.py)
+echo "Parsed results: $PARSED"
 
-status_map = { r['name']: r['status'] for r in results }
+# Load required tests from config
+FAIL_TO_PASS=$(python3 -c "import json; d=json.load(open('$TEST_PATCH_FILE')); print(' '.join(d['fail_to_pass']))")
+PASS_TO_PASS=$(python3 -c "import json; d=json.load(open('$TEST_PATCH_FILE')); print(' '.join(d['pass_to_pass']))")
 
-need_pass = cfg.get('fail_to_pass',[]) + cfg.get('pass_to_pass',[])
-all_pass = True
-for t in need_pass:
-    if status_map.get(t) != 'passed':
-        all_pass = False
+REWARD=1
 
-os.makedirs('/logs/verifier', exist_ok=True)
-with open('/logs/verifier/reward.txt','w') as f:
-    f.write('1' if all_pass else '0')
+for TEST in $FAIL_TO_PASS $PASS_TO_PASS; do
+    STATUS=$(echo "$PARSED" | python3 -c "
+import json,sys
+data=json.load(sys.stdin)
+name='$TEST'
+for r in data:
+    if r['name'] == name:
+        print(r['status'])
+        sys.exit(0)
+print('missing')
+")
+    echo "  $TEST -> $STATUS"
+    if [ "$STATUS" != "pass" ]; then
+        REWARD=0
+    fi
+done
 
-print('Wrote reward:', '1' if all_pass else '0')
-sys.exit(0 if all_pass else 1)
-PY
+echo "$REWARD" > "$LOGS_DIR/reward.txt"
+echo "Final reward: $REWARD"

@@ -1,7 +1,14 @@
 {
-  "base_commit": "5e3614ba9d2dde4e9a28e2a21445b3c24c41a425",
-  "fail_to_pass": [],
-  "pass_to_pass": [],
-  "test_patch": "",
-  "selected_test_files_to_run": []
+  "base_commit": "78c50d7aea648fa6036b5461f2b98eeb21765f27",
+  "fail_to_pass": [
+    "tests.test_price_alert_duplicate.PriceAlertDuplicateTest.test_duplicate_alert_returns_400",
+    "tests.test_price_alert_duplicate.PriceAlertDuplicateTest.test_different_city_allows_second_alert"
+  ],
+  "pass_to_pass": [
+    "tests.test_price_alert_duplicate.PriceAlertDuplicateTest.test_first_alert_creation_succeeds"
+  ],
+  "test_patch": "diff --git a/apps/api/tests/test_price_alert_duplicate.py b/apps/api/tests/test_price_alert_duplicate.py\nnew file mode 100644\nindex 0000000..bae9a0f\n--- /dev/null\n+++ b/apps/api/tests/test_price_alert_duplicate.py\n@@ -0,0 +1,61 @@\n+from django.test import TestCase\n+from rest_framework import status\n+from rest_framework.test import APIClient\n+\n+from market.models import Item, PriceAlert\n+from users.models import User\n+\n+\n+class PriceAlertDuplicateTest(TestCase):\n+    def setUp(self):\n+        self.client = APIClient()\n+        self.user = User.objects.create_user(\n+            email='alertuser@example.com',\n+            password='pass12345',\n+            full_name='Alert User',\n+        )\n+        self.client.force_authenticate(user=self.user)\n+        self.item = Item.objects.create(name='Teff', category='Food', unit='kg')\n+\n+    def test_first_alert_creation_succeeds(self):\n+        res = self.client.post(\n+            '/api/market/price-alerts/',\n+            {'item': self.item.id, 'target_price': '80.00', 'city': 'Addis Ababa'},\n+            format='json',\n+        )\n+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)\n+        self.assertEqual(PriceAlert.objects.filter(user=self.user).count(), 1)\n+\n+    def test_duplicate_alert_returns_400(self):\n+        # Create the first alert\n+        self.client.post(\n+            '/api/market/price-alerts/',\n+            {'item': self.item.id, 'target_price': '80.00', 'city': 'Addis Ababa'},\n+            format='json',\n+        )\n+        # Attempt a second alert for the same item+city\n+        res = self.client.post(\n+            '/api/market/price-alerts/',\n+            {'item': self.item.id, 'target_price': '75.00', 'city': 'Addis Ababa'},\n+            format='json',\n+        )\n+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)\n+        # Only one alert should exist\n+        self.assertEqual(PriceAlert.objects.filter(user=self.user, item=self.item).count(), 1)\n+\n+    def test_different_city_allows_second_alert(self):\n+        # First alert for Addis Ababa\n+        r1 = self.client.post(\n+            '/api/market/price-alerts/',\n+            {'item': self.item.id, 'target_price': '80.00', 'city': 'Addis Ababa'},\n+            format='json',\n+        )\n+        self.assertEqual(r1.status_code, status.HTTP_201_CREATED)\n+        # Second alert for Adama - should be allowed\n+        r2 = self.client.post(\n+            '/api/market/price-alerts/',\n+            {'item': self.item.id, 'target_price': '78.00', 'city': 'Adama'},\n+            format='json',\n+        )\n+        self.assertEqual(r2.status_code, status.HTTP_201_CREATED)\n+        self.assertEqual(PriceAlert.objects.filter(user=self.user, item=self.item).count(), 2)\n",
+  "selected_test_files_to_run": [
+    "apps/api/tests/test_price_alert_duplicate.py"
+  ]
 }

@@ -34,14 +34,15 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/logout/', LogoutView.as_view(), name='token_logout'),
     # API apps
-    path('api/users/', include('users.urls')),
-    path('api/admin/', include('users.admin_urls')),
-    path('api/admin/ml/retrain/', AdminMLRetrainView.as_view(), name='admin-ml-retrain'),
-    path('api/admin/ml/status/', AdminMLStatusView.as_view(), name='admin-ml-status'),
-    path('api/admin/ml/monitoring/', AdminMLMonitoringView.as_view(), name='admin-ml-monitoring'),
-    path('api/market/', include('market.urls')),
-    path('api/finance/', include('finance.urls')),
-    path('api/ecommerce/', include('ecommerce.urls')),
+    path('api/humans/', include('users.urls')),
+    path('api/hq/', include('users.admin_urls')),
+    path('api/hq/ml/retrain/', AdminMLRetrainView.as_view(), name='admin-ml-retrain'),
+    path('api/hq/ml/status/', AdminMLStatusView.as_view(), name='admin-ml-status'),
+    path('api/hq/ml/monitoring/', AdminMLMonitoringView.as_view(), name='admin-ml-monitoring'),
+    path('api/marketplace/', include('market.urls')),
+    path('api/treasury/', include('finance.urls')),
+    path('api/shop/', include('ecommerce.urls')),
+    path('api/atlas/', include('atlas.urls')),
 ]
 
 # Serve media files in development

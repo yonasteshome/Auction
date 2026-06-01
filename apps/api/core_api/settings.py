@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'market',
     'finance',
     'ecommerce',
+    'atlas',
 ]
 
 MIDDLEWARE = [
